@@ -1,6 +1,3 @@
-body {
-  background-color: AliceBlue;
-  h1 {
-    color: red;
-  }
-}
+@import "../node_modules/zurb-foundation-scss-npm/scss/normalize";
+@import "../node_modules/zurb-foundation-scss-npm/scss/foundation";
+@import "custom_styles";
