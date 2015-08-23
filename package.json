@@ -1,0 +1,26 @@
+{
+  "name": "dindin_front_end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ma3east/DINDIN_FRONT_END.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ma3east/DINDIN_FRONT_END/issues"
+  },
+  "homepage": "https://github.com/ma3east/DINDIN_FRONT_END#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "ejs": "^2.3.3",
+    "express": "^4.13.3",
+    "express-ejs-layouts": "^1.1.0",
+    "morgan": "^1.6.1"
+  }
+}
