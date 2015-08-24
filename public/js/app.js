@@ -32,4 +32,15 @@ $(function(){
     })
   })
 
+  $("body").on("click", ".delete_product", function(){
+    event.preventDefault();
+    console.log($(this).attr("id"));
+    console.log(this);
+    $.ajax({
+      url: "http://localhost:9000/api/products/" + $(this).attr("id"),
+      type: "delete",
+      success: window.location.href="http://localhost:3000/"
+    });
+  })
+
 });
