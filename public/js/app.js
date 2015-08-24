@@ -1,18 +1,35 @@
 $(function(){
-//$(document).foundation();
-$("#new_product").on("submit", function(){
-  event.preventDefault();
-  var product = {};
-  product.bestBefore = Date.now();
-  product.name = $(this).find("input[name=name]").val();
-  product.quantity = $(this).find("input[name=quantity]").val();
-  product.image = $(this).find("input[name=image]").val();
-  console.log(product);
-  $.ajax({
-    url: "http://localhost:9000/api/products/",
-    type: "post",
-    data: product,
-    success: window.location.href="http://localhost:3000/"
+
+  $(document).foundation();
+
+  $("#new_product").on("submit", function(){
+    event.preventDefault();
+    var product = {};
+    product.bestBefore = Date.now();
+    product.name = $(this).find("input[name=name]").val();
+    product.quantity = $(this).find("input[name=quantity]").val();
+    product.image = $(this).find("input[name=image]").val();
+    $.ajax({
+      url: "http://localhost:9000/api/products/",
+      type: "post",
+      data: product,
+      success: window.location.href="http://localhost:3000/"
+    })
+  });
+
+  $("#sign_up").on("submit", function(){
+    event.preventDefault();
+    var user = {};
+    user.username = $(this).find("input[name=username]").val();
+    user.email = $(this).find("input[name=email]").val();
+    user.password = $(this).find("input[name=password]").val();
+    user.location = $(this).find("input[name=location]").val();
+    $.ajax({
+      url: "http://localhost:9000/api/users/",
+      type: "post",
+      data: user,
+      success: window.location.href="http://localhost:3000/"
+    })
   })
-});
+
 });
