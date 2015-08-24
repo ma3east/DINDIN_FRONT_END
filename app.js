@@ -25,7 +25,7 @@ app.use(sassMiddleware({
 )
 
 app.use(function(req,res,next){
-  global.user = req.cookies.user_id || null;
+  global.currentUser = req.cookies.user_id || null;
   next();
 })
 

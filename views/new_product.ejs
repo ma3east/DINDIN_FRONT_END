@@ -1,5 +1,6 @@
 <h1>Login with an existing account</h1>
 <form action="/products" method="post" id="new_product">
+  <input type="hidden" name="user_id" value="<%= currentUser %>">
   <label>Name</label>
   <input type="text" name="name">
   <label>Image URL</label>
@@ -8,5 +9,13 @@
   <input type="text" name="quantity">
   <label>Best before date</label>
   <input type="text" name="bestBefore">
+  
+  <label>Pick up time slots</label>
+  <input type="text" name="availableTime">
+
+  <label>Pick up location</label>
+  <input type="text" name="location">
+
   <button type="submit">Submit</button>
+
 </form>
