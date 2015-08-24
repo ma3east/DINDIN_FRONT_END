@@ -27,20 +27,35 @@ $(function(){
     $.ajax({
       url: "http://localhost:9000/api/users/",
       type: "post",
-      data: user,
-      success: window.location.href="http://localhost:3000/"
+      data: user
+    }).done(function(user){
+      $.ajax({
+        url: "http://localhost:3000/users/session",
+        type: "post",
+        data: {id: user._id}
+      }).always(function(){
+      window.location.href="http://localhost:3000/";
+      })
     })
   })
 
   $("body").on("click", ".delete_product", function(){
     event.preventDefault();
-    console.log($(this).attr("id"));
-    console.log(this);
     $.ajax({
       url: "http://localhost:9000/api/products/" + $(this).attr("id"),
       type: "delete",
       success: window.location.href="http://localhost:3000/"
     });
+  })
+
+  $("#login").on("submit",function(){
+    event.preventDefault();
+    var email = $(this).find("input[name=email]").val();
+    $.ajax({
+      url: "http://localhost:3000/login",
+      type: "post",
+      data: {email: email}
+    })
   })
 
 });

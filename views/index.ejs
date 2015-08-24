@@ -7,7 +7,8 @@
       <h3><%= product.name %></h3>
       <p><%= product.quantity %></p>
       <p><%= product.bestBefore %></p>
-      <button type="button" id="<%= product._id %>" class="delete_product">Delete</button>
+      <a class="button round small" href="/products/<%= product._id %>">Get food</a>
+      <button type="button" id="<%= product._id %>" class="delete_product button round small">Delete</button>
     </li>
   <% }) %>
 </ul>

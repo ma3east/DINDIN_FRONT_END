@@ -4,8 +4,11 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var expressLayouts = require('express-ejs-layouts');
 var sassMiddleware = require('node-sass-middleware');
+var cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(cookieParser());
 
 app.set("views", "./views");
 app.engine('ejs', require('ejs').renderFile);
@@ -21,6 +24,10 @@ app.use(sassMiddleware({
   express.static(__dirname + '/public')
 )
 
+app.use(function(req,res,next){
+  global.user = req.cookies.user_id || null;
+  next();
+})
 
 app.use(require('./controllers'));
 
