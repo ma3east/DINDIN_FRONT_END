@@ -2,9 +2,11 @@
 
 <ul id="product-container" class="small-block-grid-3">
   <% products.forEach(function(product){ %>
-    <li class="panel">
+    <li>
+      <img src="<%= product.image %>">
       <h3><%= product.name %></h3>
       <p><%= product.quantity %></p>
+      <p>product.bestBefore</p>
     </li>
   <% }) %>
 </ul> 

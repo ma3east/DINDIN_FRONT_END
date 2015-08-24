@@ -12,7 +12,7 @@ app.set('view engine', 'ejs')
 app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(sassMiddleware({
-  src: __dirname + '/sass', 
+  src: __dirname + '/scss', 
   dest: __dirname + '/public', 
   debug: true, 
   outputStyle: 'compressed' 
@@ -25,4 +25,4 @@ app.use(sassMiddleware({
 
 app.use(require('./controllers'));
 
-app.listen(process.env.PORT || 3001);
+app.listen(process.env.PORT || 3000);
