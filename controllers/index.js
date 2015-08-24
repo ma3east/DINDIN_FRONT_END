@@ -41,8 +41,8 @@ router.post('/login', function(req, res) {
     if (!error && response.statusCode == 200) {
       var users = JSON.parse(body);
       var user_id = find_user_id(users,req.body.email);
-      if(user_id){res.cookie('user_id', user_id, { expires: 0, httpOnly: true });}
-      res.redirect("/");
+      res.cookie('user_id', user_id, { expires: 0, httpOnly: true });
+      res.send("Done");
     }
   })
 });
@@ -51,7 +51,7 @@ router.post('/login', function(req, res) {
 function find_user_id(array, email){
   var user_id = null;
   array.forEach(function(user){
-    if(user.email===email){ user_id = user._id}
+    if(user.email===email){ user_id = user._id }
   });
   return user_id;
 }
