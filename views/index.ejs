@@ -1,15 +1,17 @@
 <h1>Welcome to Dindins</h1>
 
 <ul id="product-container" class="small-block-grid-3">
-  <% products.forEach(function(product){ %>
+  <% transactions.forEach(function(transaction){ %>
+  <% var product = transaction.products[0] %>
+      <% if(product && (transaction.status === "open" || transaction.status === true)) { %>
     <li class="panel">
       <img src="<%= product.image %>">
       <h3><%= product.name %></h3>
       <p><%= product.quantity %></p>
       <% date = new Date(product.bestBefore) %>
       <p><%= date.toDateString() %></p>
-      <a class="button round small" href="/products/<%= product._id %>">Get food</a>
-      <button type="button" id="<%= product._id %>" class="delete_product button round small">Delete</button>
+      <a class="button round small" href="/transactions/<%= transaction._id %>">Get food</a>
     </li>
+    <%  } %>
   <% }) %>
 </ul>
