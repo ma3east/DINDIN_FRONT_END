@@ -3,7 +3,7 @@
 <ul id="product-container" class="small-block-grid-3">
   <% transactions.forEach(function(transaction){ %>
   <% var product = transaction.products[0] %>
-      <% if(product && (transaction.status === "open" || transaction.status === true)) { %>
+      <% if(product && transaction.status === "open") { %>
     <li class="panel">
       <img src="<%= product.image %>">
       <h3><%= product.name %></h3>

@@ -16,7 +16,7 @@
 <ul class="small-block-grid-3">
 <% transactions.forEach(function(transaction){ %>
 <% var product = transaction.products[0] %>
-<% if(transaction.takerId._id === currentUser && transaction.status==="taken") { %>
+<% if( transaction.takerId && (transaction.takerId._id === currentUser && transaction.status==="taken")) { %>
     <li class="panel">
       <img src="<%= product.image %>">
       <h3><%= product.name %></h3>
