@@ -12,16 +12,19 @@
   <% }) %>
 </ul>
 
-<h1>Taken food - please review</h1>
+<h1>Past transactions - please review</h1>
 <ul class="small-block-grid-3">
 <% transactions.forEach(function(transaction){ %>
 <% var product = transaction.products[0] %>
-<% if( transaction.takerId && (transaction.takerId._id === currentUser && transaction.status==="taken")) { %>
+<% if (transaction.status ==="taken" || transaction.status === "ratedByOne") { %>
+<% var isGiver = (transaction.giverId._id === currentUser) %>
+<% if ( transaction.takerId._id === currentUser || isGiver ) { %>
+<% var rate_user = isGiver ? transaction.takerId._id : transaction.giverId._id %>
     <li class="panel">
       <img src="<%= product.image %>">
       <h3><%= product.name %></h3>
       <label>Please rate the transaction experiance with the giver/taker</label>
-      <form class="rate_transaction" id="<%= transaction._id %>" data-giverId="<%= transaction.giverId._id%>" >
+      <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>">
         <select>
           <option value="-5">Transaction failed.</option>
           <option value="-2">Very inconvenient.</option>
@@ -31,7 +34,11 @@
         </select>
         <button type="submit" class="button round small">Review now</button>
       </form>
+      <button type="button" class="button round small cancel_transaction" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+        Cancel transaction
+      </button>
     </li>
+<% } %>
 <% } %>
 <% }) %>
 </ul>
