@@ -98,23 +98,23 @@ $("#update_transaction").on("submit",function(){
 $(".rate_transaction").on("submit", function(){
   event.preventDefault();
   var rating = $(this).find("select").val();
-  var transaction_id = $(this).find("button").attr("id");
-  var status = "rated";
-  // Reset status and rating if the transaction failed
+  var transaction_id = $(this).attr("id");
+  var user_id = $(this).data().userid;
+  var status = $(this).data().status;
+  if (status === "taken") {
+    status = "ratedByOne";
+  } else {
+    status = "closed";
+  }
   $.ajax({
-    url: "http://localhost:9000/api/users/" + document.cookie.split(";")[1].split("=")[1],
+    url: "http://localhost:9000/api/users/" + user_id,
     type: "PUT",
-    headers: {
-      'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1]
-    },
+    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
     contentType: "application/json",
-    data:
-      JSON.stringify({
-        $inc: {reputation: rating}
-      })
-  
+    data: JSON.stringify({$inc: {reputation: rating}})
   })
   .done(function(){
+  // Reset status and rating if the transaction failed
       if(rating == -5) {
         status="open";
         rating=0;
@@ -129,5 +129,28 @@ $(".rate_transaction").on("submit", function(){
     })
   })
 })
+
+$(".cancel_transaction").on("click", function(){
+  event.preventDefault();
+  var transaction_id = $(this).attr("id");
+  var user_id = $(this).data().userid;
+  $.ajax({
+      url: "http://localhost:9000/api/transactions/" + transaction_id,
+      type: "PUT",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+      data: {status: "open"}
+    }).done(function(){
+  $.ajax({
+    url: "http://localhost:9000/api/users/" + user_id,
+    type: "PUT",
+    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    contentType: "application/json",
+    data: JSON.stringify({$inc: {reputation: -2}})
+  }).done(function(){
+      window.location.href="http://localhost:3000";
+    })
+  })
+})
+
 
 });
