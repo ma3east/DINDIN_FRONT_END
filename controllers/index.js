@@ -5,6 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
   request('http://localhost:9000/api/transactions', function (error, response, body) {
     if (!error && response.statusCode == 200) {
+      console.log(JSON.parse(body))
       res.render('index', { transactions: JSON.parse(body)})
     }
   })
