@@ -8,7 +8,8 @@ $(function(){
     product.addedBy = $(this).find("input[name=user_id]").val();
     product.bestBefore = Date.now();
     product.name = $(this).find("input[name=name]").val();
-    product.quantity = $(this).find("input[name=quantity]").val();
+    //product.quantity = $(this).find("input[name=quantity]").val() || 1;
+    product.quantity = 1;
     product.image = $(this).find("input[name=image]").val();
 
     var transaction = {};
@@ -20,14 +21,14 @@ $(function(){
     $.ajax({
       url: "http://localhost:9000/api/products",
       type: "post",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
       data: product
     }).done(function(product){
       transaction.products = product._id;
       $.ajax({
         url: "http://localhost:9000/api/transactions/",
         type: "post",
-        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+        headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
         data: transaction
       }).done(function(){
         window.location.href="http://localhost:3000"
@@ -59,7 +60,7 @@ $("body").on("click", ".delete_transaction", function(){
   var transaction_id = $(this).attr("id");
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
     type: "delete"
   }).done(function(){
     window.location.href="http://localhost:3000"
@@ -88,7 +89,7 @@ $("#update_transaction").on("submit",function(){
   $.ajax({
     url: "http://localhost:9000/api" + $(this).attr("action"),
     type: "PUT",
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
     data: {takerId: takerId, meetingTime: Date.now(), status:"taken"}
   }).done(function(){
     window.location.href="http://localhost:3000";
@@ -122,7 +123,7 @@ $(".rate_transaction").on("submit", function(){
     $.ajax({
       url: "http://localhost:9000/api/transactions/" + transaction_id,
       type: "PUT",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
       data: {rating: rating, status: status}
     }).done(function(){
       window.location.href="http://localhost:3000";
@@ -137,7 +138,7 @@ $(".cancel_transaction").on("click", function(){
   $.ajax({
       url: "http://localhost:9000/api/transactions/" + transaction_id,
       type: "PUT",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
       data: {status: "open"}
     }).done(function(){
   $.ajax({
@@ -152,5 +153,26 @@ $(".cancel_transaction").on("click", function(){
   })
 })
 
+$(".search_product").on("submit", function(){
+  event.preventDefault();
+  var search = $(this).find("input[name=search]").val();
+  $.ajax({
+    url: "http://localhost:9000/api/products/search",
+    type: "POST",
+    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    data: {search: search}
+  }).done(function(data){
+    data.forEach(function(product){
+    $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ product.Name +"</p></li>");
+    })
+  })
+})
+
+$("#product_container").on("click", ".product_item", function(){
+  $(".product_item").removeClass("active-product");
+  $(this).addClass("active-product");
+  $("input[name=name]").val($(this).find("p").html());
+  $("input[name=image]").val($(this).find("img").attr("src"));
+})
 
 });
