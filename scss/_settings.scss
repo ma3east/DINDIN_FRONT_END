@@ -124,7 +124,7 @@ $include-html-global-classes: $include-html-classes;
 // $info-color: #a0d3e8;
 
 // We use these to control various global styles
-$body-bg: black;
+// $body-bg: black;
 // $body-font-color: $jet;
 // $body-font-family: $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
@@ -378,7 +378,7 @@ $body-bg: black;
 // $include-xl-html-block-grid-classes: false;
 
 // We use this to control the maximum number of block grid elements per row
-// $block-grid-elements: 12;
+$block-grid-elements: 2;
 // $block-grid-default-spacing: rem-calc(20);
 
 // $align-block-grid-to-grid: false;
@@ -978,8 +978,8 @@ $body-bg: black;
 // $panel-border-color: scale-color($panel-bg, $lightness: $panel-function-factor);
 
 // We use these to set default inner padding and bottom margin
-// $panel-margin-bottom: rem-calc(20);
-// $panel-padding: rem-calc(20);
+// $panel-margin-bottom: rem-calc(5);
+// $panel-padding: rem-calc(0);
 
 // We use these to set default font colors
 // $panel-font-color: $oil;
@@ -1340,13 +1340,13 @@ $body-bg: black;
 
 // We use these to control border styles
 // $thumb-border-style: solid;
-// $thumb-border-width: 4px;
+// $thumb-border-width: 0px;
 // $thumb-border-color: $white;
 // $thumb-box-shadow: 0 0 0 1px rgba($black,.2);
 // $thumb-box-shadow-hover: 0 0 6px 1px rgba($primary-color,0.5);
 
 // Radius and transition speed for thumbs
-// $thumb-radius: $global-radius;
+// $thumb-radius: 10px;
 // $thumb-transition-speed: 200ms;
 
 // 33. Tooltips
