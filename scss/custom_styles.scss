@@ -1,6 +1,12 @@
 h1 {
-    color: brown;
-  }
+  color: brown;
+}
+
+.dindins {
+  width: 500px;
+  height: 200px;
+  text-align: center;
+}
 
 img {
   height: 125px;
@@ -17,7 +23,8 @@ ul {
 
 html, body {
 	height: 100%;
-	margin-left: 0
+	margin-left: 0;
+  width: 100%;
 }
 
 .wrapper {
@@ -27,12 +34,39 @@ html, body {
 	margin: 0 auto -35px; /* the bottom margin is the negative value of the footer's height */
 }
 
+iframe {
+  border: 1px solid black;
+}
+
+.team {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+.about {
+  text-align: center;
+}
+
+img.contact-logo {
+  width: 4em;
+  height: 2em;
+  padding-right: 1em;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+img.contact-logo:hover {
+  opacity: 0.6;
+}
+
+
 .footer, .push {
 	height: 35px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
+  height: 35px;
+  widows: 100%;
 	border:1px solid #008CBA;
 	background-color: #008CBA;
 	border-top-left-radius: 5px;

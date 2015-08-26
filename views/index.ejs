@@ -1,4 +1,4 @@
-<h1>Welcome to Dindins</h1>
+<h1><img src="images/dindinsLogo.jpeg" class="dindins"></h1>
 <iframe
   width="450"
   height="250"
@@ -16,8 +16,8 @@
       <img src="<%= product.image %>">
     </a></div>
     <div class="info">
-      <h3><%= product.name %></h3>
-      <p><%= product.quantity %></p>
+      <h3>Name: <%= product.name %></h3>
+      <p>Quantity: <%= product.quantity %></p>
       <% date = new Date(product.bestBefore) %>
       <p><%= date.toDateString() %></p>
       <p>Giver reputation: <%= transaction.giverId.reputation %></p>
