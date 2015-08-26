@@ -98,7 +98,9 @@ $("#update_transaction").on("submit",function(){
 $(".rate_transaction").on("submit", function(){
   event.preventDefault();
   var rating = $(this).find("select").val();
-  var transaction_id = $(this).find("button").attr("id");
+  var transaction_id = $(this).attr("id");
+  var giver_id = $(this).data().giverId;
+  console.log(giver_id);
   var status = "rated";
   // Reset status and rating if the transaction failed
   $.ajax({
@@ -108,11 +110,7 @@ $(".rate_transaction").on("submit", function(){
       'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1]
     },
     contentType: "application/json",
-    data:
-      JSON.stringify({
-        $inc: {reputation: rating}
-      })
-  
+    data: JSON.stringify({$inc: {reputation: rating}})
   })
   .done(function(){
       if(rating == -5) {

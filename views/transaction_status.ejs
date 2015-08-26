@@ -21,7 +21,7 @@
       <img src="<%= product.image %>">
       <h3><%= product.name %></h3>
       <label>Please rate the transaction experiance with the giver/taker</label>
-      <form class="rate_transaction ">
+      <form class="rate_transaction" id="<%= transaction._id %>" data-giverId="<%= transaction.giverId._id%>" >
         <select>
           <option value="-5">Transaction failed.</option>
           <option value="-2">Very inconvenient.</option>
@@ -29,7 +29,7 @@
           <option value="1">Good.</option>
           <option value="2">Very good.</option>
         </select>
-        <button type="submit" id="<%= transaction._id %>" class="button round small">Review now</button>
+        <button type="submit" class="button round small">Review now</button>
       </form>
     </li>
 <% } %>
