@@ -1,10 +1,10 @@
 <h1>Welcome to Dindins</h1>
 <ul id="product-container">
-  <% transactions.forEach(function(transaction){ %>
-  <% var product = transaction.products[0] %>
-  <% if(product && (transaction.status === "open" ) { %>
+  <% transactions.forEach(function(transaction) { %>
+  <% var product = transaction.products[0]; %>
+  <% if(product && (transaction.status === "open")) { %>
   <li class="panel">
-    <div class="image"><a class="th" href="./products/<%=product.id%>">
+    <div class="image"><a class="th" href="./products/<%=product._id%>">
       <img src="<%= product.image %>">
     </a></div>
     <div class="info">
