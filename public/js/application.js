@@ -1,5 +1,3 @@
-//document.cookie.split("=")[1]
-
 $(function(){
 
   $(document).foundation();
@@ -44,16 +42,16 @@ $("#sign_up").on("submit", function(){
   user.email = $(this).find("input[name=email]").val();
   user.password = $(this).find("input[name=password]").val();
   user.location = $(this).find("input[name=location]").val();
+  user.reputation = 0;
   $.ajax({
     url: "http://localhost:9000/api/users",
     type: "post",
     data: user
   }).done(function(data){
-    console.log(data.user);
-      document.cookie="token="+data.token;
-      document.cookie="user_id="+data.user.id;
-      window.location.href="http://localhost:3000";
-    });
+    document.cookie="token="+data.token;
+    document.cookie="user_id="+data.user.id;
+    window.location.href="http://localhost:3000";
+  });
 });
 
 $("body").on("click", ".delete_transaction", function(){
@@ -64,8 +62,8 @@ $("body").on("click", ".delete_transaction", function(){
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
     type: "delete"
   }).done(function(){
-      window.location.href="http://localhost:3000"
-    });
+    window.location.href="http://localhost:3000"
+  });
 })
 
 $("#login").on("submit",function(){
@@ -76,16 +74,16 @@ $("#login").on("submit",function(){
     url: "http://localhost:9000/api/users/login",
     type: "POST",
     data: {email: email, password: password}
-    }).done(function(data){
-        document.cookie="token="+data.token;
-        document.cookie="user_id="+data.user.id;
-        window.location.href="http://localhost:3000";
-    })
+  }).done(function(data){
+    document.cookie="token="+data.token;
+    document.cookie="user_id="+data.user.id;
+    window.location.href="http://localhost:3000";
   })
+})
 
 $("#update_transaction").on("submit",function(){
   event.preventDefault();
-  var takerId = $(this).find("input[name=takeId]").val();
+  var takerId = $(this).find("input[name=taker_id]").val();
   var meetingTime = $(this).find("input[name=meetingTime]").val();
   $.ajax({
     url: "http://localhost:9000/api" + $(this).attr("action"),
@@ -93,7 +91,7 @@ $("#update_transaction").on("submit",function(){
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
     data: {takerId: takerId, meetingTime: Date.now(), status:"taken"}
   }).done(function(){
-        window.location.href="http://localhost:3000";
+    window.location.href="http://localhost:3000";
   })
 })
 
@@ -101,14 +99,34 @@ $(".rate_transaction").on("submit", function(){
   event.preventDefault();
   var rating = $(this).find("select").val();
   var transaction_id = $(this).find("button").attr("id");
-  console.log(rating, " + ",transaction_id)
+  var status = "rated";
+  // Reset status and rating if the transaction failed
   $.ajax({
-    url: "http://localhost:9000/api/transactions/" + transaction_id,
+    url: "http://localhost:9000/api/users/" + document.cookie.split(";")[1].split("=")[1],
     type: "PUT",
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
-    data: {rating: rating, status:"rated"}
-  }).done(function(){
-        window.location.href="http://localhost:3000";
+    headers: {
+      'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1]
+    },
+    contentType: "application/json",
+    data:
+      JSON.stringify({
+        $inc: {reputation: rating}
+      })
+  
+  })
+  .done(function(){
+      if(rating == -5) {
+        status="open";
+        rating=0;
+      }
+    $.ajax({
+      url: "http://localhost:9000/api/transactions/" + transaction_id,
+      type: "PUT",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+      data: {rating: rating, status: status}
+    }).done(function(){
+      window.location.href="http://localhost:3000";
+    })
   })
 })
 

@@ -10,6 +10,7 @@
       <p><%= product.quantity %></p>
       <% date = new Date(product.bestBefore) %>
       <p><%= date.toDateString() %></p>
+      <p>Giver reputation: <%= transaction.giverId.reputation %></p>
       <a class="button round small" href="/transactions/<%= transaction._id %>">Get food</a>
     </li>
     <%  } %>
