@@ -1,37 +1,53 @@
 <h1>Open offers</h1>
-<ul class="small-block-grid-3">
+<ul id="product-container">
   <% transactions.forEach(function(transaction){ %>
   <% var product = transaction.products[0] %>
   <% if(transaction.giverId._id === currentUser && transaction.status==="open") { %>
-    <li class="panel">
+  <li class="panel">
+    <div class="image">
       <img src="<%= product.image %>">
+    </div>
+    <div class="info">
       <h3><%= product.name %></h3>
-      <button type="button" id="<%= transaction._id %>" class="delete_transaction button round small">Delete</button>
-    </li>
+    </div>
+    <button type="button" id="<%= transaction._id %>" class="button expand">Delete</button>
+  </li>
   <% } %>
   <% }) %>
 </ul>
 
-<h1>Taken food - please review</h1>
-<ul class="small-block-grid-3">
-<% transactions.forEach(function(transaction){ %>
-<% var product = transaction.products[0] %>
-<% if( transaction.takerId && (transaction.takerId._id === currentUser && transaction.status==="taken")) { %>
-    <li class="panel">
+<h1>Past transactions - please review</h1>
+<ul id="product-container">
+  <% transactions.forEach(function(transaction){ %>
+  <% var product = transaction.products[0] %>
+  <% if (transaction.status ==="taken" || transaction.status === "ratedByOne") { %>
+  <% var isGiver = (transaction.giverId._id === currentUser) %>
+  <% if ( transaction.takerId._id === currentUser || isGiver ) { %>
+  <% var rate_user = isGiver ? transaction.takerId._id : transaction.giverId._id %>
+  <li class="panel">
+    <div class="image">
       <img src="<%= product.image %>">
+    </div>
+    <div class="info">
       <h3><%= product.name %></h3>
-      <label>Please rate the transaction experiance with the giver/taker</label>
-      <form class="rate_transaction ">
-        <select>
-          <option value="-5">Transaction failed.</option>
-          <option value="-2">Very inconvenient.</option>
-          <option value="-1">Mildly inconvenient.</option>
-          <option value="1">Good.</option>
-          <option value="2">Very good.</option>
-        </select>
-        <button type="submit" id="<%= transaction._id %>" class="button round small">Review now</button>
-      </form>
-    </li>
-<% } %>
-<% }) %>
+    </div>
+    <label>Please rate the transaction experiance with the giver/taker</label>
+    <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>">
+      <select>
+        <option value="-5">Transaction failed.</option>
+        <option value="-2">Very inconvenient.</option>
+        <option value="-1">Mildly inconvenient.</option>
+        <option value="1">Good.</option>
+        <option value="2">Very good.</option>
+      </select>
+      <button type="submit" class="button expand">Review now</button>
+    </form>
+    <button type="button" class="button expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+      Cancel transaction
+    </button>
+  </li>
+  <% } %>
+  <% } %>
+  <% }) %>
+</ul>
 </ul>
