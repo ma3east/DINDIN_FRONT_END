@@ -10,6 +10,7 @@
     <div class="info">
       <h3><%= product.name %></h3>
     </div>
+    <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
     <button type="button" id="<%= transaction._id %>" class="button expand">Delete</button>
   </li>
   <% } %>
@@ -31,9 +32,14 @@
     </div>
     <div class="info">
       <h3><%= product.name %></h3>
+      <p>Transaction location: <%= transaction.location %></p>
+      <% date = new Date(transaction.meetingTime) %>
+      <% min = ""+date.getMinutes() %>
+      <% if(min.length<=1){ min="0"+min} %>
+      <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
-    <label>Please rate the transaction experiance with the giver/taker</label>
     <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>">
+    <label>Please rate the transaction experiance with the giver/taker</label>
       <select>
         <option value="-5">Transaction failed.</option>
         <option value="-2">Very inconvenient.</option>

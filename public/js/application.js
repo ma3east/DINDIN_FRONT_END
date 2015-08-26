@@ -2,11 +2,15 @@ $(function(){
 
   $(document).foundation();
 
+ $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
+ $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+
   $("#new_product").on("submit", function(){
     event.preventDefault();
     var product = {};
     product.addedBy = $(this).find("input[name=user_id]").val();
-    product.bestBefore = Date.now();
+    date = $(this).find("input[name=bestBefore]").val().split("/");
+    product.bestBefore = new Date(date[1]+"/"+date[0]+"/"+date[2]);
     product.name = $(this).find("input[name=name]").val();
     //product.quantity = $(this).find("input[name=quantity]").val() || 1;
     product.quantity = 1;
@@ -24,6 +28,8 @@ $(function(){
       headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
       data: product
     }).done(function(product){
+      console.log(product);
+      if(!product.errors){
       transaction.products = product._id;
       $.ajax({
         url: "http://localhost:9000/api/transactions/",
@@ -33,6 +39,7 @@ $(function(){
       }).done(function(){
         window.location.href="http://localhost:3000"
       })
+    }
     })
   });
 
@@ -85,13 +92,13 @@ $("#login").on("submit",function(){
 $("#update_transaction").on("submit",function(){
   event.preventDefault();
   var takerId = $(this).find("input[name=taker_id]").val();
-  var meetingTime = $(this).find("input[name=meetingTime]").val();
+  var meetingTime = parseUKdatetime($(this).find("input[name=meetingTime]").val());
   $.ajax({
     url: "http://localhost:9000/api" + $(this).attr("action"),
     type: "PUT",
     headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-    data: {takerId: takerId, meetingTime: Date.now(), status:"taken"}
-  }).done(function(){
+    data: {takerId: takerId, meetingTime: meetingTime, status:"taken"}
+  }).done(function(data){
     window.location.href="http://localhost:3000";
   })
 })
@@ -163,7 +170,8 @@ $(".search_product").on("submit", function(){
     data: {search: search}
   }).done(function(data){
     data.forEach(function(product){
-    $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ product.Name +"</p></li>");
+    var name=product.Name.replace("Tesco ","");
+    $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
     })
   })
 })
@@ -176,3 +184,14 @@ $("#product_container").on("click", ".product_item", function(){
 })
 
 });
+
+function parseUKdatetime(string){
+  var date = string.split(" ")[0].split("/");
+  var time = string.split(" ")[1].split(":");
+  console.log(string, date, time);
+  var result = new Date(date[1]+"/"+date[0]+"/"+date[2]);
+  result.setHours(time[0]);
+  result.setMinutes(time[1]);
+  console.log(result);
+  return result;
+}

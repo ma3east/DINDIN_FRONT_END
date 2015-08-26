@@ -10,17 +10,21 @@
 <ul id="product-container">
   <% transactions.forEach(function(transaction) { %>
   <% var product = transaction.products[0]; %>
-  <% if(product && (transaction.status === "open")) { %>
+  <% if( product && transaction.status === "open") { %>
+  <%# transaction.giverId._id !== currentUser && %>
   <li class="panel">
-    <div class="image"><a class="th" href="./transactions/<%=transaction._id%>">
+    <div class="image"><a class="th" href="/transactions/<%=transaction._id%>">
       <img src="<%= product.image %>">
     </a></div>
     <div class="info">
       <h3><%= product.name %></h3>
-      <p><%= product.quantity %></p>
+<!--  <p><%# product.quantity %></p> -->
       <% date = new Date(product.bestBefore) %>
-      <p><%= date.toDateString() %></p>
+      <p>Best before: <%= date.toDateString() %></p>
+      <% if (currentUser) { %>
       <p>Giver reputation: <%= transaction.giverId.reputation %></p>
+      <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+      <%  } %>
     </div>
     <a class="button expand" href="/transactions/<%= transaction._id %>">Get food</a>
   </li>
