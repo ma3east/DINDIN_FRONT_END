@@ -1,30 +1,36 @@
-<h1>Open offers</h1>
-<ul id="product-container">
-  <% transactions.forEach(function(transaction){ %>
+
+<% if( transactions.upcoming.length > 0){ %>
+<h1>Upcoming transactions</h1>
+<% } %>
+
+<ul>
+  <% transactions.upcoming.forEach(function(transaction){ %>
   <% var product = transaction.products[0] %>
-  <% if(transaction.giverId._id === currentUser && transaction.status==="open") { %>
   <li class="panel">
     <div class="image">
       <img src="<%= product.image %>">
     </div>
     <div class="info">
       <h3><%= product.name %></h3>
+      <p>Transaction location: <%= transaction.location %></p>
+      <% date = new Date(transaction.meetingTime) %>
+      <% min = ""+date.getMinutes() %>
+      <% if(min.length<=1){ min="0"+min} %>
+      <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
-    <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
-    <button type="button" id="<%= transaction._id %>" class="button radius" >Delete</button>
-  </li>
-  <% } %>
+    <button type="button" class="button radius cancel_transaction" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+      Cancel transaction
+    </button>
+    </li>
   <% }) %>
 </ul>
-
+<% if( transactions.toBeRated.length > 0){ %>
 <h1>Past transactions - please review</h1>
-
-<ul id="product-container">
-  <% transactions.forEach(function(transaction){ %>
+<% } %>
+<ul>
+  <% transactions.toBeRated.forEach(function(transaction){ %>
   <% var product = transaction.products[0] %>
-  <% if (transaction.status ==="taken" || transaction.status === "ratedByOne") { %>
   <% var isGiver = (transaction.giverId._id === currentUser) %>
-  <% if ( transaction.takerId._id === currentUser || isGiver ) { %>
   <% var rate_user = isGiver ? transaction.takerId._id : transaction.giverId._id %>
   <li class="panel">
     <div class="image">
@@ -38,8 +44,8 @@
       <% if(min.length<=1){ min="0"+min} %>
       <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
-    <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>">
-    <label>Please rate the transaction experiance with the giver/taker</label>
+    <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>" data-isgiver="<%= isGiver %>">
+      <label>Please rate the transaction experiance with the giver/taker</label>
       <select>
         <option value="-5">Transaction failed.</option>
         <option value="-2">Very inconvenient.</option>
@@ -52,9 +58,26 @@
     <button type="button" class="button radius" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
       Cancel transaction
     </button>
-  </li>
-  <% } %>
-  <% } %>
+    </li>
   <% }) %>
 </ul>
+
+<% if( transactions.open.length > 0){ %>
+<h1>Open offers</h1>
+<% } %>
+<ul>
+  <% transactions.open.forEach(function(transaction){ %>
+  <% var product = transaction.products[0] %>
+  <li class="panel">
+    <div class="image">
+      <img src="<%= product.image %>">
+    </div>
+    <div class="info">
+      <h3><%= product.name %></h3>
+    </div>
+    <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+    <button type="button" id="<%= transaction._id %>" class="button radius" >Delete</button>
+  </li>
+
+  <% }) %>
 </ul>

@@ -1,9 +1,44 @@
 $(function(){
-
+  if(document.cookie){
+  var token = document.cookie.split(";")[0].split("=")[1];
+  var currentUser = document.cookie.split(";")[1].split("=")[1];
+  $.ajax({
+    url: "http://localhost:9000/api/users/"+ currentUser,
+    type: "GET",
+    headers: { 'Authorization': "Bearer " + token }
+  }).done(function(user){
+    $("#username").find("i").html("Logged in as "+user.username);
+  })
+  }
+  
   $(document).foundation();
 
- $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
- $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+  $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
+  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+
+  $.ajax({
+    url: "http://localhost:9000/api/transactions",
+    type: "GET",
+    headers: { 'Authorization': "Bearer " + token }
+  }).done(function(transactions){
+    var valid_transactions = [];
+    transactions.forEach(function(transaction){
+      if(transaction.status !== "open" && transaction.status !== "closed"){
+        var isTaker = (transaction.takerId._id === currentUser);
+        var isGiver = (transaction.giverId._id === currentUser);
+        if(isGiver || isTaker){
+          valid_transactions.push(transaction);
+        }
+      }
+    });
+    $("#notification").hide();
+    if(valid_transactions.length>0){
+      $("#notification").show();
+      $("#notification").find("span").html(valid_transactions.length);
+    }
+  })
+
+
 
   $("#new_product").on("submit", function(){
     event.preventDefault();
@@ -25,21 +60,21 @@ $(function(){
     $.ajax({
       url: "http://localhost:9000/api/products",
       type: "post",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+      headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
       console.log(product);
       if(!product.errors){
-      transaction.products = product._id;
-      $.ajax({
-        url: "http://localhost:9000/api/transactions/",
-        type: "post",
-        headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-        data: transaction
-      }).done(function(){
-        window.location.href="http://localhost:3000"
-      })
-    }
+        transaction.products = product._id;
+        $.ajax({
+          url: "http://localhost:9000/api/transactions/",
+          type: "post",
+          headers: { 'Authorization': "Bearer " + token },
+          data: transaction
+        }).done(function(){
+          window.location.href="http://localhost:3000"
+        })
+      }
     })
   });
 
@@ -67,7 +102,7 @@ $("body").on("click", ".delete_transaction", function(){
   var transaction_id = $(this).attr("id");
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     type: "delete"
   }).done(function(){
     window.location.href="http://localhost:3000"
@@ -96,7 +131,7 @@ $("#update_transaction").on("submit",function(){
   $.ajax({
     url: "http://localhost:9000/api" + $(this).attr("action"),
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     data: {takerId: takerId, meetingTime: meetingTime, status:"taken"}
   }).done(function(data){
     window.location.href="http://localhost:3000";
@@ -108,16 +143,19 @@ $(".rate_transaction").on("submit", function(){
   var rating = $(this).find("select").val();
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
+  var isGiver = $(this).data().isgiver;
   var status = $(this).data().status;
-  if (status === "taken") {
-    status = "ratedByOne";
+  if (status === "taken" && isGiver === "true") {
+    status = "ratedByGiver";
+  } else if(status === "taken" && isGiver === "false"){
+    status = "ratedByTaker";
   } else {
     status = "closed";
   }
   $.ajax({
     url: "http://localhost:9000/api/users/" + user_id,
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     contentType: "application/json",
     data: JSON.stringify({$inc: {reputation: rating}})
   })
@@ -130,7 +168,11 @@ $(".rate_transaction").on("submit", function(){
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
+<<<<<<< HEAD
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+=======
+    headers: { 'Authorization': "Bearer " + token },
+>>>>>>> 5625ee273367672baf1e6be8f349f2c97b864834
     data: {rating: rating, status: status}
   }).done(function(){
     window.location.href="http://localhost:3000";
@@ -140,24 +182,23 @@ $(".rate_transaction").on("submit", function(){
 
 $(".cancel_transaction").on("click", function(){
   event.preventDefault();
+  console.log("clicked");
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
   $.ajax({
-      url: "http://localhost:9000/api/transactions/" + transaction_id,
-      type: "PUT",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-      data: {status: "open"}
-    }).done(function(){
-  $.ajax({
-    url: "http://localhost:9000/api/users/" + user_id,
+    url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
+<<<<<<< HEAD
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+=======
+    headers: { 'Authorization': "Bearer " + token },
+>>>>>>> 5625ee273367672baf1e6be8f349f2c97b864834
     data: {status: "open"}
   }).done(function(){
     $.ajax({
       url: "http://localhost:9000/api/users/" + user_id,
       type: "PUT",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+      headers: { 'Authorization': "Bearer " + token },
       contentType: "application/json",
       data: JSON.stringify({$inc: {reputation: -2}})
     }).done(function(){
@@ -172,12 +213,12 @@ $(".search_product").on("submit", function(){
   $.ajax({
     url: "http://localhost:9000/api/products/search",
     type: "POST",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     data: {search: search}
   }).done(function(data){
     data.forEach(function(product){
-    var name=product.Name.replace("Tesco ","");
-    $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
+      var name=product.Name.replace("Tesco ","");
+      $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
     })
   })
 })

@@ -42,11 +42,39 @@ router.get('/transactions/:id', function(req, res) {
 });
 
 router.get('/transaction_status', function(req, res) {
-    request('http://localhost:9000/api/transactions', function (error, response, body) {
+  request('http://localhost:9000/api/transactions', function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      res.render('transaction_status', { transactions: JSON.parse(body) })
+      var result = JSON.parse(body);
+      res.render('transaction_status', { transactions: sort_transactions(result) })
     }
   })
 });
+
+function sort_transactions(result){
+  var transactions = {
+    open: [],
+    upcoming: [],
+    toBeRated: []
+  };
+
+  result.forEach(function(transaction){
+    var isGiver = (transaction.giverId._id === currentUser);
+    if(isGiver && transaction.status==="open"){
+      transactions.open.push(transaction);
+    } else if(transaction.status ==="taken" && (new Date(transaction.meetingTime) >= Date.now())){
+      var isTaker = (transaction.takerId._id === currentUser);
+      if(isGiver || isTaker){
+        transactions.upcoming.push(transaction);
+      }
+    } else if(transaction.status !== "closed" && transaction.status !== "open"){ 
+      var isTaker = (transaction.takerId._id === currentUser);
+      if( (isGiver && transaction.status !== "ratedByGiver") || (isTaker && transaction.status !== "ratedByTaker")){
+        transactions.toBeRated.push(transaction);
+      }
+    }
+  })
+
+  return transactions;
+}
 
 module.exports = router;
