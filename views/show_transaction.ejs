@@ -1,11 +1,14 @@
 <div class="page">
-    <% var product = transaction.products[0]; %>
-    <h3><%= product.name %></h3>
-    <img src="<%= product.image %>">
-    <!-- <p>Quantity: <%# product.quantity %></p> -->
-    <% date = new Date(product.bestBefore) %>
-    <p>Best before: <%= date.toDateString() %></p>
-    <p>Pick up:<br> <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+  <% var product = transaction.products[0]; %>
+  <h3><%= product.name %></h3>
+  <img src="<%= product.image %>">
+  <!-- <p>Quantity: <%# product.quantity %></p> -->
+  <% date = new Date(product.bestBefore) %>
+  <p>Best before: <%= date.toDateString() %></p>
+  <% date1 = new Date(transaction.availableTime[0]) %>
+  <% date2 = new Date(transaction.availableTime[1]) %>
+  <p>Pick up:<%= transaction.location %> (<%= date1.toDateString()+" "+date1.toTimeString().substring(0,5)+" - "+
+    date2.toTimeString().substring(0,5) %>)</p>
     <form action="/transactions/<%= transaction._id %>" method="update" id="update_transaction">
       <input type="hidden" name="taker_id" value="<%= currentUser %>">
       <label>Exact pick-up date and time</label>

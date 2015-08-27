@@ -1,87 +1,90 @@
 
 <% if( transactions.upcoming.length > 0){ %>
-  <h1>Upcoming Transactions</h1>
+<h1>Upcoming Transactions</h1>
 <% } %>
 
 
 <ul>
   <% transactions.upcoming.forEach(function(transaction){ %>
-    <% var product = transaction.products[0] %>
-    <li class="panel">
-      <section>
-        <div class="image">
-          <img src="<%= product.image %>">
-        </div>
-        <div class="info">
-          <h3><%= product.name %></h3>
-          <p><span>Location:</span> <%= transaction.location %></p>
-          <% date = new Date(transaction.meetingTime) %>
-          <% min = ""+date.getMinutes() %>
-          <% if(min.length<=1){ min="0"+min} %>
-          <p><span>Time:</span> <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
-        </div>
-      </section>
-      <button type="button" class="button radius cancel_transaction expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
-        Cancel Transaction
-      </button>
-    </li>
+  <% var product = transaction.products[0] %>
+  <li class="panel">
+    <section>
+      <div class="image">
+        <img src="<%= product.image %>">
+      </div>
+      <div class="info">
+        <h3><%= product.name %></h3>
+        <p><span>Location:</span> <%= transaction.location %></p>
+        <% date = new Date(transaction.meetingTime) %>
+        <% min = ""+date.getMinutes() %>
+        <% if(min.length<=1){ min="0"+min} %>
+        <p><span>Time:</span> <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
+      </div>
+    </section>
+    <button type="button" class="button radius cancel_transaction expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+      Cancel Transaction
+    </button>
+  </li>
   <% }) %>
 </ul>
 
 
 <% if (transactions.toBeRated.length > 0){ %>
-  <h1>Past transactions - please review</h1>
-  <ul>
-    <% transactions.toBeRated.forEach(function(transaction){ %>
-      <% var product = transaction.products[0] %>
-      <% var isGiver = (transaction.giverId._id === currentUser) %>
-      <% var rate_user = isGiver ? transaction.takerId._id : transaction.giverId._id %>
-      <li class="panel">
-        <section>
-          <div class="image">
-            <img src="<%= product.image %>">
-          </div>
-          <div class="info">
-            <h3><%= product.name %></h3>
-            <p><span>Location:</span> <%= transaction.location %></p>
-            <% date = new Date(transaction.meetingTime) %>
-            <% min = ""+date.getMinutes() %>
-            <% if(min.length<=1){ min="0"+min} %>
-            <p><span>Time:</span> <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
-          </div>
-        </section>
-        <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>" data-isgiver="<%= isGiver %>">
-          <label>Please rate the transaction experience with the giver/taker</label>
-          <select>
-            <option value="-5">Transaction failed.</option>
-            <option value="-2">Very inconvenient.</option>
-            <option value="-1">Mildly inconvenient.</option>
-            <option value="1">Good.</option>
-            <option value="2">Very good.</option>
-          </select>
-          <button type="submit" class="button radius expand" >Review Now</button>
-        </form>
-        <button type="button" class="button radius expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
-          Cancel Transaction
-        </button>
-      </li>
-    <% }) %>
-  </ul>
+<h1>Past transactions - please review</h1>
+<ul>
+  <% transactions.toBeRated.forEach(function(transaction){ %>
+  <% var product = transaction.products[0] %>
+  <% var isGiver = (transaction.giverId._id === currentUser) %>
+  <% var rate_user = isGiver ? transaction.takerId._id : transaction.giverId._id %>
+  <li class="panel">
+    <section>
+      <div class="image">
+        <img src="<%= product.image %>">
+      </div>
+      <div class="info">
+        <h3><%= product.name %></h3>
+        <p><span>Location:</span> <%= transaction.location %></p>
+        <% date = new Date(transaction.meetingTime) %>
+        <% min = ""+date.getMinutes() %>
+        <% if(min.length<=1){ min="0"+min} %>
+        <p><span>Time:</span> <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
+      </div>
+    </section>
+    <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>" data-isgiver="<%= isGiver %>">
+      <label>Please rate the transaction experience with the giver/taker</label>
+      <select>
+        <option value="-5">Transaction failed.</option>
+        <option value="-2">Very inconvenient.</option>
+        <option value="-1">Mildly inconvenient.</option>
+        <option value="1">Good.</option>
+        <option value="2">Very good.</option>
+      </select>
+      <button type="submit" class="button radius expand" >Review Now</button>
+    </form>
+    <button type="button" class="button radius expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+      Cancel Transaction
+    </button>
+  </li>
+  <% }) %>
+</ul>
 <% } %>
 
 <% if( transactions.open.length > 0){ %>
-  <h1>Open offers</h1>
-  <ul>
-    <% transactions.open.forEach(function(transaction){ %>
-    <% var product = transaction.products[0] %>
-    <li class="panel">
-      <section>
-        <div class="image">
-          <img src="<%= product.image %>">
-        </div>
-        <div class="info">
-          <h3><%= product.name %></h3>
-          <p><span>Pick up:</span> <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+<h1>Open offers</h1>
+<ul>
+  <% transactions.open.forEach(function(transaction){ %>
+  <% var product = transaction.products[0] %>
+  <li class="panel">
+    <section>
+      <div class="image">
+        <img src="<%= product.image %>">
+      </div>
+      <div class="info">
+        <h3><%= product.name %></h3>
+        <% date1 = new Date(transaction.availableTime[0]) %>
+        <% date2 = new Date(transaction.availableTime[1]) %>
+        <p><span>Pick up:</span><%= transaction.location %> (<%= date1.toDateString()+" "+date1.toTimeString().substring(0,5)+" - "+
+          date2.toTimeString().substring(0,5) %>)</p>
         </div>
       </section>
       <button type="button" id="<%= transaction._id %>" class="button radius expand" >Delete</button>
@@ -89,4 +92,4 @@
 
     <% }) %>
   </ul>
-<% } %>
+  <% } %>
