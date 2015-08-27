@@ -17,7 +17,8 @@
       <% date = new Date(product.bestBefore) %>
       <p>Best Before Date: <br> <%= date.toDateString() %></p>
       <% if (currentUser) { %>
-      <p>Giver reputation: <%= transaction.giverId.reputation %></p>
+      <p>Giver: <%= transaction.giverId.username %></p>
+      <p>User Rating: <%= transaction.giverId.reputation %></p>
       <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
       <%  } %>
     </div>
