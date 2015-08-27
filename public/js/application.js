@@ -68,7 +68,7 @@ $(function(){
       headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
-      console.log(product);
+      console.log("HEY SAM" + product);
       if(!product.errors){
         transaction.products = product._id;
         $.ajax({
