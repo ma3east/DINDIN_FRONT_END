@@ -11,7 +11,7 @@
       <h3><%= product.name %></h3>
     </div>
     <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
-    <button type="button" id="<%= transaction._id %>" class="button expand">Delete</button>
+    <button type="button" id="<%= transaction._id %>" class="button radius" >Delete</button>
   </li>
   <% } %>
   <% }) %>
@@ -47,9 +47,9 @@
         <option value="1">Good.</option>
         <option value="2">Very good.</option>
       </select>
-      <button type="submit" class="button expand">Review now</button>
+      <button type="submit" class="button radius" >Review now</button>
     </form>
-    <button type="button" class="button expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+    <button type="button" class="button radius" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
       Cancel transaction
     </button>
   </li>

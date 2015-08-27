@@ -1,12 +1,11 @@
-<h1>Welcome to Dindins</h1>
-<iframe
-  width="450"
-  height="250"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/search
-  ?key=AIzaSyBsY-d_L81yDfBmQ04hKmpSXd207weBZ94
-  &q=record+stores+in+Seattle">
-</iframe>
+<h1><img src="images/dindinsLogo.jpeg" class="dindins_logo"></h1>
+
+  <iframe
+    src="https://www.google.com/maps/embed/v1/search
+    ?key=AIzaSyBsY-d_L81yDfBmQ04hKmpSXd207weBZ94
+    &q=record+stores+in+Seattle">
+  </iframe>
+
 <ul id="product-container">
   <% transactions.forEach(function(transaction) { %>
   <% var product = transaction.products[0]; %>
@@ -20,13 +19,13 @@
       <h3><%= product.name %></h3>
 <!--  <p><%# product.quantity %></p> -->
       <% date = new Date(product.bestBefore) %>
-      <p>Best before: <%= date.toDateString() %></p>
+      <p>Best Before Date: <%= date.toDateString() %></p>
       <% if (currentUser) { %>
       <p>Giver reputation: <%= transaction.giverId.reputation %></p>
       <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
       <%  } %>
     </div>
-    <a class="button expand" href="/transactions/<%= transaction._id %>">Get food</a>
+    <a class="button radius" href="/transactions/<%= transaction._id %>">Get food</a>
   </li>
   <%  } %>
   <% }) %>

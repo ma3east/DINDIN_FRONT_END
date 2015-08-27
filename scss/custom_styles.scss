@@ -1,6 +1,59 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  //margin-left: 0;
+}
+
+body {
+  font-size: 100%;
+  width: 100%;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background: #d6e4f4;//#66CCFF;
+}
+
+.top-bar {
+  background: linear-gradient(#003399, #d6e4f4);
+}
+
+
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+  height: 100%;
+  margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
+  height */
+  // margin: 0 40px;
+}
+
 h1 {
-    color: brown;
-  }
+  font-family: Boogaloo, sans-serif;
+  text-align: center;
+  font-size: 30px;
+  color: brown;
+
+}
+
+.dindins_logo {
+  width: 500px;
+  height: 200px;
+  text-align: center;
+}
+
+iframe {
+  width: 450px;
+  height: 250px;
+  border: 0px;
+  margin: 0 auto;
+}
+
+// these were the inline iframe settings
+// width="450"
+// height="250"
+// frameborder="0" style="border:0"
 
 img {
   height: 125px;
@@ -11,81 +64,102 @@ ul {
 	list-style-type: none;
 }
 
-* {
-	margin: 0;
+section {
+  border: 1px solid black;
 }
 
-html, body {
-	height: 100%;
-	margin-left: 0
+.team {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+.about {
+  text-align: center;
 }
 
-.wrapper {
-	min-height: 100%;
-	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-	height: 100%;
-	margin: 0 auto -35px; /* the bottom margin is the negative value of the footer's height */
+img.contact-logo {
+  width: 4em;
+  height: 2em;
+  padding-right: 1em;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+img.contact-logo:hover {
+  opacity: 0.6;
 }
 
 .footer, .push {
-	height: 35px; /* .push must be the same height as .footer */
+	height: 90px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
-	border:1px solid #008CBA;
-	background-color: #008CBA;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	margin-left: 30%;
-	margin-right: 30%;
-	vertical-align: center;
+  height: 90px;
+  // margin: 0 40px;
+  color: white;
+	// border: 1px solid #0066CC;
+	// background-color: #008CBA;
+  // background-color: #0066CC;
+  background-color: #003399;
+  background: linear-gradient(#d6e4f4, #003399);
+  padding-top: 10px;
+	// margin-left: 30%;
+	// margin-right: 30%;
 }
+
+.info {
+  margin: 10px;
+  // text-align: left;
+  text-align: center;
+}
+
+.image {
+  margin: 10px;
+  width: 125px;
+  float: left;
+}
+
+.active-product {
+  border: 2px solid black;
+}
+
+@media screen and (max-width: 500px) {
+
+  body {
+    margin: 0;
+    
+  }
+  .warpper {
+    margin: 0
+  }
+}
+
+
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
  v2.0 | 20110126
  License: none (public domain)
  */
 
- html, body, div, span, applet, object, iframe,
- h1, h2, h3, h4, h5, h6, p, blockquote, pre,
- a, abbr, acronym, address, big, cite, code,
- del, dfn, em, img, ins, kbd, q, s, samp,
- small, strike, strong, sub, sup, tt, var,
- b, u, i, center,
- dl, dt, dd, ol, ul, li,
- fieldset, form, label, legend,
- table, caption, tbody, tfoot, thead, tr, th, td,
- article, aside, canvas, details, embed, 
- figure, figcaption, footer, header, hgroup, 
- menu, nav, output, ruby, section, summary,
- time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-.info {
-	margin:10px;
-	text-align: left;
-}
-
-.image {
-	margin:10px;
-	width:125px;
-	float:left;
-}
+//  html, body, div, span, applet, object, iframe,
+//  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+//  a, abbr, acronym, address, big, cite, code,
+//  del, dfn, em, img, ins, kbd, q, s, samp,
+//  small, strike, strong, sub, sup, tt, var,
+//  b, u, i, center,
+//  dl, dt, dd, ol, ul, li,
+//  fieldset, form, label, legend,
+//  table, caption, tbody, tfoot, thead, tr, th, td,
+//  article, aside, canvas, details, embed, 
+//  figure, figcaption, footer, header, hgroup, 
+//  menu, nav, output, ruby, section, summary,
+//  time, mark, audio, video {
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   font-size: 100%;
+//   font: inherit;
+//   vertical-align: baseline;
+// }
 
 
-.active-product {
-  border: 2px solid black;
-}
-
-h1 {
-	text-align:center;
-	font-size: 30px;
-
-}
