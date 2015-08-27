@@ -1,6 +1,6 @@
 
 <% if( transactions.upcoming.length > 0){ %>
-<h1>Upcoming transactions</h1>
+<h1>Upcoming Transactions</h1>
 <% } %>
 
 <ul>
@@ -19,7 +19,7 @@
       <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
     <button type="button" class="button radius cancel_transaction" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
-      Cancel transaction
+      Cancel Transaction
     </button>
     </li>
   <% }) %>
@@ -42,10 +42,10 @@
       <% date = new Date(transaction.meetingTime) %>
       <% min = ""+date.getMinutes() %>
       <% if(min.length<=1){ min="0"+min} %>
-      <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
+      <p>Meeting time:<br> <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
     <form class="rate_transaction" id="<%= transaction._id %>" data-userid="<%= rate_user %>" data-status="<%= transaction.status %>" data-isgiver="<%= isGiver %>">
-      <label>Please rate the transaction experiance with the giver/taker</label>
+      <label>Please rate the transaction experience with the giver/taker</label>
       <select>
         <option value="-5">Transaction failed.</option>
         <option value="-2">Very inconvenient.</option>
@@ -53,10 +53,11 @@
         <option value="1">Good.</option>
         <option value="2">Very good.</option>
       </select>
-      <button type="submit" class="button radius" >Review now</button>
+      <button type="submit" class="button radius" >Review Now</button>
     </form>
+    <br>
     <button type="button" class="button radius" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
-      Cancel transaction
+      Cancel Transaction
     </button>
     </li>
   <% }) %>

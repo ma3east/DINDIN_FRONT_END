@@ -10,7 +10,8 @@ html, body {
 body {
   font-size: 100%;
   width: 100%;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  // font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "arial","Tahoma","Geneva",sans-serif;
   background: #d6e4f4;//#66CCFF;
 }
 
@@ -33,7 +34,8 @@ body {
 }
 
 h1 {
-  font-family: Boogaloo, sans-serif;
+  // font-family: Boogaloo, sans-serif;
+  font-family: 'Pacifico', cursive;
   text-align: center;
   font-size: 30px;
   color: black;
@@ -75,18 +77,6 @@ h1 {
 form {
   margin: 0 10px;
 }
-
-// iframe {
-//   width: 450px;
-//   height: 250px;
-//   border: 0px;
-//   margin: 0 auto;
-// }
-
-// these were the inline iframe settings
-// width="450"
-// height="250"
-// frameborder="0" style="border:0"
 
 img {
   height: 125px;
@@ -130,16 +120,10 @@ img.contact-logo:hover {
 
 .footer {
   height: 90px;
-  // margin: 0 40px;
   color: white;
-	// border: 1px solid #0066CC;
-	// background-color: #008CBA;
-  // background-color: #0066CC;
   background-color: #003399;
   background: linear-gradient(#d6e4f4, #003399);
   padding-top: 10px;
-	// margin-left: 30%;
-	// margin-right: 30%;
 }
 
 .info {
@@ -157,18 +141,6 @@ img.contact-logo:hover {
   border: 2px solid black;
 }
 
-@media screen and (max-width: 500px) {
-
-  body {
-    margin: 0;
-    
-  }
-  .warpper {
-    margin: 0
-  }
-}
-
-
 #notification {
   background-color: red;
   padding: 5px 15px;
@@ -179,32 +151,4 @@ img.contact-logo:hover {
 #username {
   padding-right: 10px;
 }
-
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
- v2.0 | 20110126
- License: none (public domain)
- */
-
-//  html, body, div, span, applet, object, iframe,
-//  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-//  a, abbr, acronym, address, big, cite, code,
-//  del, dfn, em, img, ins, kbd, q, s, samp,
-//  small, strike, strong, sub, sup, tt, var,
-//  b, u, i, center,
-//  dl, dt, dd, ol, ul, li,
-//  fieldset, form, label, legend,
-//  table, caption, tbody, tfoot, thead, tr, th, td,
-//  article, aside, canvas, details, embed, 
-//  figure, figcaption, footer, header, hgroup, 
-//  menu, nav, output, ruby, section, summary,
-//  time, mark, audio, video {
-//   margin: 0;
-//   padding: 0;
-//   border: 0;
-//   font-size: 100%;
-//   font: inherit;
-//   vertical-align: baseline;
-// }
-
 
