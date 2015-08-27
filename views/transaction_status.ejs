@@ -18,7 +18,7 @@
       <% if(min.length<=1){ min="0"+min} %>
       <p>Meeting time: <%= date.toDateString()+" "+date.getHours()+":"+ min %></p>
     </div>
-    <button type="button" class="button radius" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+    <button type="button" class="button radius cancel_transaction" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
       Cancel transaction
     </button>
     </li>

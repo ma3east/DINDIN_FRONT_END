@@ -1,9 +1,34 @@
 $(function(){
+  var token = document.cookie.split(";")[0].split("=")[1];
+  var currentUser = document.cookie.split(";")[1].split("=")[1];
 
   $(document).foundation();
 
- $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
- $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+  $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
+  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+
+  $.ajax({
+    url: "http://localhost:9000/api/transactions",
+    type: "GET",
+    headers: { 'Authorization': "Bearer " + token }
+  }).done(function(transactions){
+    var valid_transactions = [];
+    transactions.forEach(function(transaction){
+      if(transaction.status !== "open" && transaction.status !== "closed"){
+        var isTaker = (transaction.takerId._id === currentUser);
+        var isGiver = (transaction.giverId._id === currentUser);
+        if(isGiver || isTaker){
+          valid_transactions.push(transaction);
+        }
+      }
+    });
+    $("#notification").hide();
+    if(valid_transactions.length>0){
+      $("#notification").show();
+      $("#notification").find("span").html(valid_transactions.length);
+    }
+  })
+
 
   $("#new_product").on("submit", function(){
     event.preventDefault();
@@ -25,21 +50,21 @@ $(function(){
     $.ajax({
       url: "http://localhost:9000/api/products",
       type: "post",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+      headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
       console.log(product);
       if(!product.errors){
-      transaction.products = product._id;
-      $.ajax({
-        url: "http://localhost:9000/api/transactions/",
-        type: "post",
-        headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-        data: transaction
-      }).done(function(){
-        window.location.href="http://localhost:3000"
-      })
-    }
+        transaction.products = product._id;
+        $.ajax({
+          url: "http://localhost:9000/api/transactions/",
+          type: "post",
+          headers: { 'Authorization': "Bearer " + token },
+          data: transaction
+        }).done(function(){
+          window.location.href="http://localhost:3000"
+        })
+      }
     })
   });
 
@@ -67,7 +92,7 @@ $("body").on("click", ".delete_transaction", function(){
   var transaction_id = $(this).attr("id");
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     type: "delete"
   }).done(function(){
     window.location.href="http://localhost:3000"
@@ -96,7 +121,7 @@ $("#update_transaction").on("submit",function(){
   $.ajax({
     url: "http://localhost:9000/api" + $(this).attr("action"),
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     data: {takerId: takerId, meetingTime: meetingTime, status:"taken"}
   }).done(function(data){
     window.location.href="http://localhost:3000";
@@ -120,44 +145,45 @@ $(".rate_transaction").on("submit", function(){
   $.ajax({
     url: "http://localhost:9000/api/users/" + user_id,
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     contentType: "application/json",
     data: JSON.stringify({$inc: {reputation: rating}})
   })
   .done(function(){
   // Reset status and rating if the transaction failed
-      if(rating == -5) {
-        status="open";
-        rating=0;
-      }
-    $.ajax({
-      url: "http://localhost:9000/api/transactions/" + transaction_id,
-      type: "PUT",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-      data: {rating: rating, status: status}
-    }).done(function(){
-      window.location.href="http://localhost:3000";
-    })
+  if(rating == -5) {
+    status="open";
+    rating=0;
+  }
+  $.ajax({
+    url: "http://localhost:9000/api/transactions/" + transaction_id,
+    type: "PUT",
+    headers: { 'Authorization': "Bearer " + token },
+    data: {rating: rating, status: status}
+  }).done(function(){
+    window.location.href="http://localhost:3000";
   })
+})
 })
 
 $(".cancel_transaction").on("click", function(){
   event.preventDefault();
+  console.log("clicked");
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
   $.ajax({
-      url: "http://localhost:9000/api/transactions/" + transaction_id,
-      type: "PUT",
-      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-      data: {status: "open"}
-    }).done(function(){
-  $.ajax({
-    url: "http://localhost:9000/api/users/" + user_id,
+    url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-    contentType: "application/json",
-    data: JSON.stringify({$inc: {reputation: -2}})
+    headers: { 'Authorization': "Bearer " + token },
+    data: {status: "open"}
   }).done(function(){
+    $.ajax({
+      url: "http://localhost:9000/api/users/" + user_id,
+      type: "PUT",
+      headers: { 'Authorization': "Bearer " + token },
+      contentType: "application/json",
+      data: JSON.stringify({$inc: {reputation: -2}})
+    }).done(function(){
       window.location.href="http://localhost:3000";
     })
   })
@@ -169,12 +195,12 @@ $(".search_product").on("submit", function(){
   $.ajax({
     url: "http://localhost:9000/api/products/search",
     type: "POST",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+    headers: { 'Authorization': "Bearer " + token },
     data: {search: search}
   }).done(function(data){
     data.forEach(function(product){
-    var name=product.Name.replace("Tesco ","");
-    $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
+      var name=product.Name.replace("Tesco ","");
+      $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
     })
   })
 })

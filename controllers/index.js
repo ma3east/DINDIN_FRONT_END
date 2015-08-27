@@ -61,7 +61,7 @@ function sort_transactions(result){
     var isGiver = (transaction.giverId._id === currentUser);
     if(isGiver && transaction.status==="open"){
       transactions.open.push(transaction);
-    } else if(transaction.status ==="taken" && new Date(transaction.meetingTime) <= Date.now()){
+    } else if(transaction.status ==="taken" && (new Date(transaction.meetingTime) >= Date.now())){
       var isTaker = (transaction.takerId._id === currentUser);
       if(isGiver || isTaker){
         transactions.upcoming.push(transaction);
