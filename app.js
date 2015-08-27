@@ -5,6 +5,7 @@ var logger = require("morgan");
 var expressLayouts = require('express-ejs-layouts');
 var sassMiddleware = require('node-sass-middleware');
 var cookieParser = require('cookie-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 

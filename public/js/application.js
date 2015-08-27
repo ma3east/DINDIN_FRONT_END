@@ -68,7 +68,7 @@ $(function(){
       headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
-      console.log(product);
+      console.log("HEY SAM" + product);
       if(!product.errors){
         transaction.products = product._id;
         $.ajax({
@@ -76,7 +76,7 @@ $(function(){
           type: "post",
           headers: { 'Authorization': "Bearer " + token },
           data: transaction
-        }).done(function(){
+        }).always(function(){
           window.location.href="http://localhost:3000"
         })
       }
@@ -215,7 +215,16 @@ $(".search_product").on("submit", function(){
   }).done(function(data){
     data.forEach(function(product){
       var name=product.Name.replace("Tesco ","");
-      $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
+      $("#product_container").append("<li class='product_item panel'>"+
+        "<section>"+
+          "<div class='image'>"+
+            "<img src=" + product.ImagePath + " class='product-img'>"+
+          "</div>"+
+          "<div class='info'>"+
+            "<h3>"+ name +"</h3>"+
+          "</div>"+
+        "</section>"+
+        "</li>");
     })
   })
 })
@@ -239,3 +248,45 @@ function parseUKdatetime(string){
   console.log(result);
   return result;
 }
+
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 51.5072, lng: -0.122},
+    zoom: 11
+  });
+  function populateMap(){
+    var token = document.cookie.split(";")[0].split("=")[1];
+    geocoder = new google.maps.Geocoder();
+    $.ajax({
+      url: "http://localhost:9000/api/transactions",
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(transactions){
+      transactions.forEach(function(transaction){
+        geocoder.geocode({"address": transaction.location},
+          function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                url:transaction._id
+              });
+             google.maps.event.addListener(marker, 'click', function() {
+                 window.location.href = '/transactions/'+this.url;
+             }); 
+            }
+          }
+        );
+      });
+    });
+  }
+  populateMap();
+}
+
+
+
+
+
+

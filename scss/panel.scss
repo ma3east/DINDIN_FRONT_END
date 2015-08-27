@@ -1,0 +1,33 @@
+.panel {
+  overflow: hidden; 
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  border: 3px solid #f4f4f4;
+  background: #f4f4f4;
+
+  h3 {
+    color: #21a2d7;
+    font-weight: 700;
+  }
+
+  .image {
+    margin-right: 10px;
+    width: 100px;
+    float: left;
+  }
+
+  .info {
+    width: auto;
+    float: left;
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  section {
+    overflow: hidden;
+    margin-bottom: 20px
+  }
+}
