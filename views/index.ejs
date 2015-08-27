@@ -1,12 +1,6 @@
 <h1>Welcome to Dindins</h1>
-<iframe
-  width="450"
-  height="250"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/search
-  ?key=AIzaSyBsY-d_L81yDfBmQ04hKmpSXd207weBZ94
-  &q=record+stores+in+Seattle">
-</iframe>
+<div id="map">
+</div>
 <ul id="product-container">
   <% transactions.forEach(function(transaction) { %>
   <% var product = transaction.products[0]; %>

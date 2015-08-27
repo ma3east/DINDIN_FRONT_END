@@ -115,19 +115,19 @@ $(".rate_transaction").on("submit", function(){
   })
   .done(function(){
   // Reset status and rating if the transaction failed
-      if(rating == -5) {
-        status="open";
-        rating=0;
-      }
-    $.ajax({
-      url: "http://localhost:9000/api/transactions/" + transaction_id,
-      type: "PUT",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
-      data: {rating: rating, status: status}
-    }).done(function(){
-      window.location.href="http://localhost:3000";
-    })
+  if(rating == -5) {
+    status="open";
+    rating=0;
+  }
+  $.ajax({
+    url: "http://localhost:9000/api/transactions/" + transaction_id,
+    type: "PUT",
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+    data: {rating: rating, status: status}
+  }).done(function(){
+    window.location.href="http://localhost:3000";
   })
+})
 })
 
 $(".cancel_transaction").on("click", function(){
@@ -135,18 +135,18 @@ $(".cancel_transaction").on("click", function(){
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
   $.ajax({
-      url: "http://localhost:9000/api/transactions/" + transaction_id,
-      type: "PUT",
-      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
-      data: {status: "open"}
-    }).done(function(){
-  $.ajax({
-    url: "http://localhost:9000/api/users/" + user_id,
+    url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
-    headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
-    contentType: "application/json",
-    data: JSON.stringify({$inc: {reputation: -2}})
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
+    data: {status: "open"}
   }).done(function(){
+    $.ajax({
+      url: "http://localhost:9000/api/users/" + user_id,
+      type: "PUT",
+      headers: { 'Authorization': "Bearer " + document.cookie.split(";")[0].split("=")[1] },
+      contentType: "application/json",
+      data: JSON.stringify({$inc: {reputation: -2}})
+    }).done(function(){
       window.location.href="http://localhost:3000";
     })
   })
