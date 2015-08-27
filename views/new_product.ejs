@@ -14,11 +14,22 @@
   <input type="hidden" name="name">
   <input type="hidden" name="image">
   <label>Best before date</label>
-  <input type="text" name="bestBefore" id="datepicker">
-  
-  <label>Pick up time slots</label>
-  <input type="text" name="availableTime">
-
+  <input type="text" name="bestBefore" class="datepicker">
+  <label>Available for pick up</label>
+  <div class="row">
+    <div class="small-4 columns">
+      <label>Date</label>
+      <input type="text" name="availableTimeDate" class="datepicker">
+    </div>
+    <div class="small-4 columns">
+      <label>From</label>
+      <input type="text" name="availableTimeStart" class="timepicker">
+    </div>
+    <div class="small-4 columns">
+      <label>To</label>
+      <input type="text" name="availableTimeEnd" class="timepicker">
+    </div>
+  </div>
   <label>Pick up location</label>
   <input type="text" name="location">
 

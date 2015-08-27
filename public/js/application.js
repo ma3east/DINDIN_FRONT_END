@@ -7,14 +7,15 @@ $(function(){
     type: "GET",
     headers: { 'Authorization': "Bearer " + token }
   }).done(function(user){
-    $("#username").find("i").html(user.username+" ");
+    $("#username").find("i").html(user.username);
   })
   }
   
   $(document).foundation();
 
   $('#datetimepicker').datetimepicker({format: "d/m/Y H:i", scrollInput: false});
-  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y", scrollInput: false});
+  $('.datepicker').datetimepicker({timepicker: false, format: "d/m/Y", scrollInput: false});
+  $('.timepicker').datetimepicker({datepicker:false, format:'H:i', scrollInput: false});
 
   $.ajax({
     url: "http://localhost:9000/api/transactions",
@@ -49,10 +50,13 @@ $(function(){
     event.preventDefault();
     var product = {};
     product.addedBy = $(this).find("input[name=user_id]").val();
-    date = $(this).find("input[name=bestBefore]").val().split("/");
-    product.bestBefore = new Date(date[1]+"/"+date[0]+"/"+date[2]);
+    date = $(this).find("input[name=bestBefore]").val();
+    product.bestBefore = parseUKdate(date);
+    var datestring = $(this).find("input[name=availableTimeDate]").val();
+    var time1 = $(this).find("input[name=availableTimeStart]").val();
+    var time2 = $(this).find("input[name=availableTimeStart]").val();
+    product.availableTime = parseUKtimeslot(datestring, time1, time2);
     product.name = $(this).find("input[name=name]").val();
-    //product.quantity = $(this).find("input[name=quantity]").val() || 1;
     product.quantity = 1;
     product.image = $(this).find("input[name=image]").val();
 
@@ -232,10 +236,27 @@ $("#product_container").on("click", ".product_item", function(){
 function parseUKdatetime(string){
   var date = string.split(" ")[0].split("/");
   var time = string.split(" ")[1].split(":");
-  console.log(string, date, time);
   var result = new Date(date[1]+"/"+date[0]+"/"+date[2]);
   result.setHours(time[0]);
   result.setMinutes(time[1]);
-  console.log(result);
   return result;
+}
+
+function parseUKdate(datestring){
+  datestring = string.split("/");
+  return new Date(date[1]+"/"+date[0]+"/"+date[2]);
+}
+
+function parseUKtimeslot(datestring, time1, time2){
+  var date = parseUKdate(datestring);
+  var date1 = date;
+  var date2 = date;
+  var time1 = time1.split(":");
+  var time2 = time2.split(":");
+  date1.setHours(time1[0]);
+  date1.setMinutes(time1[1]);
+  date2.setHours(time2[0]);
+  date2.setMinutes(time2[1]);
+  console.log([date1,date2]);
+  return [date1,date2];
 }
