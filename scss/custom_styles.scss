@@ -27,6 +27,11 @@ body {
   background: linear-gradient(#003399, #d6e4f4);
 }
 
+//burger bar drop down
+.top-bar-section li:not(.has-form) a:not(.button) {
+  background-color: #003399;
+}
+
 h1 {
   font-family: Boogaloo, sans-serif;
   text-align: center;
@@ -45,6 +50,11 @@ h1 {
 .dindins_logo {
   width: 500px;
   height: 200px;
+  text-align: center;
+}
+
+.page {
+  margin: 0 10px;
   text-align: center;
 }
 
@@ -92,7 +102,9 @@ section {
 }
 
 .team {
-  border: 1px solid black;
+  width: 300px;
+  height: 300px;
+  border: 2px solid white;
   margin: 0 auto;
 }
 .about {
