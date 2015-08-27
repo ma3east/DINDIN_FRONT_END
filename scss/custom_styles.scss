@@ -23,7 +23,7 @@ body {
   // margin: 0 40px;
 }
 
-.top-bar {
+.top-bar, .name {
   background: linear-gradient(#003399, #d6e4f4);
 }
 
@@ -31,18 +31,39 @@ h1 {
   font-family: Boogaloo, sans-serif;
   text-align: center;
   font-size: 30px;
-  color: brown;
+  color: black;
 
 }
 
 .dindins_button {
   float: left;
+  a {
+    font-size: 2em;
+  }
 }
 
 .dindins_logo {
   width: 500px;
   height: 200px;
   text-align: center;
+}
+
+.map {
+  border: 5px solid white;
+  margin: 5px;
+}
+
+.panel {
+  border-color: white;
+  margin-right: 1em;
+}
+
+.button {
+  margin: 0 90px;
+}
+
+form {
+  margin: 0 10px;
 }
 
 // iframe {
@@ -111,7 +132,7 @@ img.contact-logo:hover {
 
 .info {
   margin: 10px;
-  text-align: left;
+  text-align: right;
 }
 
 .image {
