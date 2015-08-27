@@ -240,7 +240,7 @@ var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.5072, lng: -0.122},
-    zoom: 12
+    zoom: 11
   });
   function populateMap(){
     var token = document.cookie.split(";")[0].split("=")[1];
@@ -256,8 +256,12 @@ function initMap() {
             if (status == google.maps.GeocoderStatus.OK) {
               var marker = new google.maps.Marker({
                 map: map,
-                position: results[0].geometry.location
+                position: results[0].geometry.location,
+                url:transaction._id
               });
+             google.maps.event.addListener(marker, 'click', function() {
+                 window.location.href = '/transactions/'+this.url;
+             }); 
             }
           }
         );
