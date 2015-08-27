@@ -1,14 +1,14 @@
 $(function(){
   if(document.cookie){
-  var token = document.cookie.split(";")[0].split("=")[1];
-  var currentUser = document.cookie.split(";")[1].split("=")[1];
-  $.ajax({
-    url: "http://localhost:9000/api/users/"+ currentUser,
-    type: "GET",
-    headers: { 'Authorization': "Bearer " + token }
-  }).done(function(user){
-    $("#username").find("i").html(user.username);
-  })
+    var token = document.cookie.split(";")[0].split("=")[1];
+    var currentUser = document.cookie.split(";")[1].split("=")[1];
+    $.ajax({
+      url: "http://localhost:9000/api/users/"+ currentUser,
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(user){
+      $("#username").find("i").html(user.username);
+    })
   }
   
   $(document).foundation();
@@ -44,25 +44,22 @@ $(function(){
     }
   })
 
-
-
   $("#new_product").on("submit", function(){
     event.preventDefault();
     var product = {};
     product.addedBy = $(this).find("input[name=user_id]").val();
     date = $(this).find("input[name=bestBefore]").val();
     product.bestBefore = parseUKdate(date);
-    var datestring = $(this).find("input[name=availableTimeDate]").val();
-    var time1 = $(this).find("input[name=availableTimeStart]").val();
-    var time2 = $(this).find("input[name=availableTimeStart]").val();
-    product.availableTime = parseUKtimeslot(datestring, time1, time2);
     product.name = $(this).find("input[name=name]").val();
     product.quantity = 1;
     product.image = $(this).find("input[name=image]").val();
 
     var transaction = {};
     transaction.giverId = $(this).find("input[name=user_id]").val();
-    transaction.availableTime = $(this).find("input[name=availableTime]").val();
+    var datestring = $(this).find("input[name=availableTimeDate]").val();
+    var time1 = $(this).find("input[name=availableTimeStart]").val();
+    var time2 = $(this).find("input[name=availableTimeEnd]").val();
+    transaction.availableTime = parseUKtimeslot(datestring, time1, time2);
     transaction.location = $(this).find("input[name=location]").val();
     transaction.status = "open";
 
@@ -72,14 +69,14 @@ $(function(){
       headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
-      console.log(product);
       if(!product.errors){
         transaction.products = product._id;
         $.ajax({
           url: "http://localhost:9000/api/transactions/",
           type: "post",
           headers: { 'Authorization': "Bearer " + token },
-          data: transaction
+          contentType: "application/json",
+          data: JSON.stringify(transaction)
         }).done(function(){
           window.location.href="http://localhost:3000"
         })
@@ -243,14 +240,13 @@ function parseUKdatetime(string){
 }
 
 function parseUKdate(datestring){
-  datestring = string.split("/");
+  date = datestring.split("/");
   return new Date(date[1]+"/"+date[0]+"/"+date[2]);
 }
 
 function parseUKtimeslot(datestring, time1, time2){
-  var date = parseUKdate(datestring);
-  var date1 = date;
-  var date2 = date;
+  var date1 = parseUKdate(datestring);
+  var date2 = new Date(date1.getTime());
   var time1 = time1.split(":");
   var time2 = time2.split(":");
   date1.setHours(time1[0]);

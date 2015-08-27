@@ -21,7 +21,9 @@
       <p>Best Before Date: <br> <%= date.toDateString() %></p>
       <% if (currentUser) { %>
       <p>Giver reputation: <%= transaction.giverId.reputation %></p>
-      <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+      <% date1 = new Date(transaction.availableTime[0]) %>
+      <% date2 = new Date(transaction.availableTime[1]) %>
+      <p>Pick up: <%= transaction.location %> (<%= date1.toDateString()+" "+date1.toTimeString().substring(0,5)+" - "+date2.toTimeString().substring(0,5) %>)</p>
       <%  } %>
     </div>
     <a class="button radius" href="/transactions/<%= transaction._id %>">Get food</a>
