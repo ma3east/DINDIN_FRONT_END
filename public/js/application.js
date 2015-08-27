@@ -1,20 +1,21 @@
 $(function(){
   if(document.cookie){
-  var token = document.cookie.split(";")[0].split("=")[1];
-  var currentUser = document.cookie.split(";")[1].split("=")[1];
-  $.ajax({
-    url: "http://localhost:9000/api/users/"+ currentUser,
-    type: "GET",
-    headers: { 'Authorization': "Bearer " + token }
-  }).done(function(user){
-    $("#username").find("i").html(user.username+" ");
-  })
+    var token = document.cookie.split(";")[0].split("=")[1];
+    var currentUser = document.cookie.split(";")[1].split("=")[1];
+    $.ajax({
+      url: "http://localhost:9000/api/users/"+ currentUser,
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(user){
+      $("#username").find("i").html(user.username);
+    })
   }
   
   $(document).foundation();
 
   $('#datetimepicker').datetimepicker({format: "d/m/Y H:i", scrollInput: false});
-  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y", scrollInput: false});
+  $('.datepicker').datetimepicker({timepicker: false, format: "d/m/Y", scrollInput: false});
+  $('.timepicker').datetimepicker({datepicker:false, format:'H:i', scrollInput: false});
 
   $.ajax({
     url: "http://localhost:9000/api/transactions",
@@ -43,22 +44,22 @@ $(function(){
     }
   })
 
-
-
   $("#new_product").on("submit", function(){
     event.preventDefault();
     var product = {};
     product.addedBy = $(this).find("input[name=user_id]").val();
-    date = $(this).find("input[name=bestBefore]").val().split("/");
-    product.bestBefore = new Date(date[1]+"/"+date[0]+"/"+date[2]);
+    date = $(this).find("input[name=bestBefore]").val();
+    product.bestBefore = parseUKdate(date);
     product.name = $(this).find("input[name=name]").val();
-    //product.quantity = $(this).find("input[name=quantity]").val() || 1;
     product.quantity = 1;
     product.image = $(this).find("input[name=image]").val();
 
     var transaction = {};
     transaction.giverId = $(this).find("input[name=user_id]").val();
-    transaction.availableTime = $(this).find("input[name=availableTime]").val();
+    var datestring = $(this).find("input[name=availableTimeDate]").val();
+    var time1 = $(this).find("input[name=availableTimeStart]").val();
+    var time2 = $(this).find("input[name=availableTimeEnd]").val();
+    transaction.availableTime = parseUKtimeslot(datestring, time1, time2);
     transaction.location = $(this).find("input[name=location]").val();
     transaction.status = "open";
 
@@ -68,15 +69,15 @@ $(function(){
       headers: { 'Authorization': "Bearer " + token },
       data: product
     }).done(function(product){
-      console.log("HEY SAM" + product);
       if(!product.errors){
         transaction.products = product._id;
         $.ajax({
           url: "http://localhost:9000/api/transactions/",
           type: "post",
           headers: { 'Authorization': "Bearer " + token },
-          data: transaction
-        }).always(function(){
+          contentType: "application/json",
+          data: JSON.stringify(transaction)
+        }).done(function(){
           window.location.href="http://localhost:3000"
         })
       }
@@ -241,12 +242,28 @@ $("#product_container").on("click", ".product_item", function(){
 function parseUKdatetime(string){
   var date = string.split(" ")[0].split("/");
   var time = string.split(" ")[1].split(":");
-  console.log(string, date, time);
   var result = new Date(date[1]+"/"+date[0]+"/"+date[2]);
   result.setHours(time[0]);
   result.setMinutes(time[1]);
-  console.log(result);
   return result;
+}
+
+function parseUKdate(datestring){
+  date = datestring.split("/");
+  return new Date(date[1]+"/"+date[0]+"/"+date[2]);
+}
+
+function parseUKtimeslot(datestring, time1, time2){
+  var date1 = parseUKdate(datestring);
+  var date2 = new Date(date1.getTime());
+  var time1 = time1.split(":");
+  var time2 = time2.split(":");
+  date1.setHours(time1[0]);
+  date1.setMinutes(time1[1]);
+  date2.setHours(time2[0]);
+  date2.setMinutes(time2[1]);
+  console.log([date1,date2]);
+  return [date1,date2];
 }
 
 
@@ -284,9 +301,3 @@ function initMap() {
   }
   populateMap();
 }
-
-
-
-
-
-
