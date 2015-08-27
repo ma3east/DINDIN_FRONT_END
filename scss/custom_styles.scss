@@ -4,15 +4,6 @@
 
 html, body {
   height: 100%;
-  //margin-left: 0;
-}
-
-body {
-  font-size: 100%;
-  width: 100%;
-  // font-family: "Comic Sans MS", cursive, sans-serif;
-  font-family: "arial","Tahoma","Geneva",sans-serif;
-  background: #d6e4f4;//#66CCFF;
 }
 
 .wrapper {
@@ -21,26 +12,8 @@ body {
   height: 100%;
   margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
   height */
-  // margin: 0 40px;
 }
 
-.top-bar, .name {
-  background: linear-gradient(#003399, #d6e4f4);
-}
-
-//burger bar drop down
-.top-bar-section li:not(.has-form) a:not(.button) {
-  background-color: #003399;
-}
-
-h1 {
-  // font-family: Boogaloo, sans-serif;
-  font-family: 'Pacifico', cursive;
-  text-align: center;
-  font-size: 30px;
-  color: black;
-
-}
 
 .dindins_button {
   float: left;
@@ -61,34 +34,11 @@ h1 {
 }
 
 .map {
-  border: 5px solid white;
-  margin: 5px;
+  width: 100%;
 }
 
-.panel {
-  border-color: white;
-  margin-right: 1em;
-}
-
-.button {
-  margin: 0 90px;
-}
-
-form {
-  margin: 0 10px;
-}
-
-img {
-  height: 125px;
-  width: 125px;
-}
-
-ul {
-	list-style-type: none;
-}
-
-section {
-  border: 1px solid black;
+iframe {
+  width: 100%;
 }
 
 .team {
@@ -114,31 +64,25 @@ img.contact-logo:hover {
 }
 
 .footer, .push {
-	height: 90px; /* .push must be the same height as .footer */
+	height: 120px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
-  height: 90px;
+  height: 120px;
   color: white;
-  background-color: #003399;
-  background: linear-gradient(#d6e4f4, #003399);
-  padding-top: 10px;
-}
+  background: #FED62E;
+  padding: 20px;
 
-.info {
-  margin: 10px;
-  text-align: right;
-}
-
-.image {
-  margin: 10px;
-  width: 125px;
-  float: left;
+  p {
+    span {
+     color: red;
+    }
+  }
 }
 
 .active-product {
-  border: 2px solid black;
+  border: 3px solid #FED62E;
 }
 
 #notification {
@@ -151,4 +95,3 @@ img.contact-logo:hover {
 #username {
   padding-right: 10px;
 }
-
