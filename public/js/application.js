@@ -184,7 +184,6 @@ $(".rate_transaction").on("submit", function(){
 
 $(".cancel_transaction").on("click", function(){
   event.preventDefault();
-  console.log("clicked");
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
   $.ajax({
@@ -233,7 +232,7 @@ $(".search_product").on("submit", function(){
 $("#product_container").on("click", ".product_item", function(){
   $(".product_item").removeClass("active-product");
   $(this).addClass("active-product");
-  $("input[name=name]").val($(this).find("p").html());
+  $("input[name=name]").val($(this).find("h3").html());
   $("input[name=image]").val($(this).find("img").attr("src"));
 })
 
@@ -265,7 +264,6 @@ function parseUKtimeslot(datestring, time1, time2){
   console.log([date1,date2]);
   return [date1,date2];
 }
-
 
 var map;
 function initMap() {
