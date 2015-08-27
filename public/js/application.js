@@ -1,7 +1,16 @@
 $(function(){
+  if(document.cookie){
   var token = document.cookie.split(";")[0].split("=")[1];
   var currentUser = document.cookie.split(";")[1].split("=")[1];
-
+  $.ajax({
+    url: "http://localhost:9000/api/users/"+ currentUser,
+    type: "GET",
+    headers: { 'Authorization': "Bearer " + token }
+  }).done(function(user){
+    $("#username").find("i").html("Logged in as "+user.username);
+  })
+  }
+  
   $(document).foundation();
 
   $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
@@ -28,6 +37,7 @@ $(function(){
       $("#notification").find("span").html(valid_transactions.length);
     }
   })
+
 
 
   $("#new_product").on("submit", function(){
