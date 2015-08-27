@@ -236,6 +236,37 @@ function parseUKdatetime(string){
 }
 
 
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 51.5072, lng: -0.122},
+    zoom: 12
+  });
+  function populateMap(){
+    var token = document.cookie.split(";")[0].split("=")[1];
+    geocoder = new google.maps.Geocoder();
+    $.ajax({
+      url: "http://localhost:9000/api/transactions",
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(transactions){
+      transactions.forEach(function(transaction){
+        geocoder.geocode({"address": transaction.location},
+          function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+            }
+          }
+        );
+      });
+    });
+  }
+  populateMap();
+}
+
 
 
 
