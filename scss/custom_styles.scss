@@ -28,44 +28,17 @@ html, body {
   text-align: center;
 }
 
-#map {
-  height:320px;
-  width:640px;
-}
-
-.panel {
-  border-color: white;
-  margin-right: 1em;
-}
-
-.button {
-  margin: 0 90px;
-}
-
-form {
+.page {
   margin: 0 10px;
+  text-align: center;
 }
 
-// iframe {
-//   width: 450px;
-//   height: 250px;
-//   border: 0px;
-//   margin: 0 auto;
-// }
-
-// these were the inline iframe settings
-// width="450"
-// height="250"
-// frameborder="0" style="border:0"
-
-img {
-  height: 125px;
-  width: 125px;
+#map {
+  width: 100%;
+  height: 640px;
 }
 
-ul {
-	list-style-type: none;
-}
+
 
 iframe {
   width: 100%;
@@ -94,8 +67,8 @@ img.contact-logo:hover {
 }
 
 .footer, .push {
-	height: 120px; /* .push must be the same height as .footer */
-	text-align: center;
+  height: 120px; /* .push must be the same height as .footer */
+  text-align: center;
 }
 
 .footer {
@@ -115,11 +88,6 @@ img.contact-logo:hover {
   border: 3px solid #FED62E;
 }
 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
->>>>>>> 11ffc73dd66fe4cdcf77cd8d1411e3779d9af55f
 #notification {
   background-color: red;
   padding: 5px 15px;
@@ -129,38 +97,4 @@ img.contact-logo:hover {
 
 #username {
   padding-right: 10px;
-<<<<<<< HEAD
 }
-
-
-=======
->>>>>>> developmentSam
-/* http://meyerweb.com/eric/tools/css/reset/ 
- v2.0 | 20110126
- License: none (public domain)
- */
-
-//  html, body, div, span, applet, object, iframe,
-//  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-//  a, abbr, acronym, address, big, cite, code,
-//  del, dfn, em, img, ins, kbd, q, s, samp,
-//  small, strike, strong, sub, sup, tt, var,
-//  b, u, i, center,
-//  dl, dt, dd, ol, ul, li,
-//  fieldset, form, label, legend,
-//  table, caption, tbody, tfoot, thead, tr, th, td,
-//  article, aside, canvas, details, embed, 
-//  figure, figcaption, footer, header, hgroup, 
-//  menu, nav, output, ruby, section, summary,
-//  time, mark, audio, video {
-//   margin: 0;
-//   padding: 0;
-//   border: 0;
-//   font-size: 100%;
-//   font: inherit;
-//   vertical-align: baseline;
-// }
-
-=======
-}
->>>>>>> 11ffc73dd66fe4cdcf77cd8d1411e3779d9af55f
