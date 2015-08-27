@@ -1,21 +1,26 @@
-  <% var product = transaction.products[0]; %>
-<img src="<%= product.image %>">
-<h3><%= product.name %></h3>
-<!-- <p>Quantity: <%# product.quantity %></p> -->
-<% date = new Date(product.bestBefore) %>
-<p>Best before: <%= date.toDateString() %></p>
-<p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
-<form action="/transactions/<%= transaction._id %>" method="update" id="update_transaction">
-  <input type="hidden" name="taker_id" value="<%= currentUser %>">
-  <label>Exact pick-up date and time</label>
-  <input id="datetimepicker" type="text" name="meetingTime">
-<!--   <input type="text" name="meetingTime"> -->
-  <div class="row">
-  	<div class="large-6 columns">
-  	<button class="button radius" type="submit">Confirm pick-up</button>
-  	</div>
-  	<div class="large-6 columns">
-  	<a class="button radius"  href="/">Back</a>
-  	</div>
-  </div>
-</form>
+<div class="page">
+    <% var product = transaction.products[0]; %>
+    <h3><%= product.name %></h3>
+    <img src="<%= product.image %>">
+    <!-- <p>Quantity: <%# product.quantity %></p> -->
+    <% date = new Date(product.bestBefore) %>
+    <p>Best before: <%= date.toDateString() %></p>
+    <p>Pick up:<br> <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+    <form action="/transactions/<%= transaction._id %>" method="update" id="update_transaction">
+      <input type="hidden" name="taker_id" value="<%= currentUser %>">
+      <label>Exact pick-up date and time</label>
+      <input id="datetimepicker" type="text" name="meetingTime">
+      <!--   <input type="text" name="meetingTime"> -->
+      <div class="row">
+       <div class="large-6 columns">
+         <button class="button radius" type="submit">Confirm<br>Pick-Up</button>
+       </div>
+       <div class="large-6 columns">
+        <br>
+        <a class="button radius"  href="/">Back</a>
+      </div>
+    </div>
+  </form>
+
+
+</div>
