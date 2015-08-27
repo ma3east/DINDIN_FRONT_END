@@ -1,29 +1,32 @@
 <h1>Welcome to Dindins</h1>
 <h1><img src="images/dindinsLogo.jpeg" class="dindins_logo"></h1>
-
 <div id="map">
 </div>
-
 <ul id="product-container">
   <% transactions.forEach(function(transaction) { %>
    <% var product = transaction.products[0]; %>
    <% if( product && transaction.status === "open") { %>
     <%# transaction.giverId._id !== currentUser && %>
   <li class="panel">
-    <div class="image"><a class="th" href="/transactions/<%=transaction._id%>">
-      <img src="<%= product.image %>">
-    </a></div>
+    <section>
+    <div class="image">
+      <a href="/transactions/<%=transaction._id%>">
+        <img src="<%= product.image %>">
+      </a>
+    </div>
     <div class="info">
       <h3><%= product.name %></h3>
       <!--  <p><%# product.quantity %></p> -->
       <% date = new Date(product.bestBefore) %>
-      <p>Best Before Date: <br> <%= date.toDateString() %></p>
+      <p><span>Best Before Date:</span> <%= date.toDateString() %></p>
       <% if (currentUser) { %>
-      <p>Giver reputation: <%= transaction.giverId.reputation %></p>
+      <p><span>Giver:</span> <%= transaction.giverId.username %></p>
+      <p><span>User Rating:</span> <%= transaction.giverId.reputation %></p>
       <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
       <%  } %>
     </div>
-    <a class="button radius" href="/transactions/<%= transaction._id %>">Get food</a>
+    </section>
+    <a class="button radius expand" href="/transactions/<%= transaction._id %>">Get food</a>
   </li>
   <%  } %>
   <% }) %>

@@ -4,14 +4,6 @@
 
 html, body {
   height: 100%;
-  //margin-left: 0;
-}
-
-body {
-  font-size: 100%;
-  width: 100%;
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  background: #d6e4f4;//#66CCFF;
 }
 
 .wrapper {
@@ -20,25 +12,8 @@ body {
   height: 100%;
   margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
   height */
-  // margin: 0 40px;
 }
 
-.top-bar, .name {
-  background: linear-gradient(#003399, #d6e4f4);
-}
-
-//burger bar drop down
-.top-bar-section li:not(.has-form) a:not(.button) {
-  background-color: #003399;
-}
-
-h1 {
-  font-family: Boogaloo, sans-serif;
-  text-align: center;
-  font-size: 30px;
-  color: black;
-
-}
 
 .dindins_button {
   float: left;
@@ -92,8 +67,8 @@ ul {
 	list-style-type: none;
 }
 
-section {
-  border: 1px solid black;
+iframe {
+  width: 100%;
 }
 
 .team {
@@ -119,52 +94,32 @@ img.contact-logo:hover {
 }
 
 .footer, .push {
-	height: 90px; /* .push must be the same height as .footer */
+	height: 120px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
-  height: 90px;
-  // margin: 0 40px;
+  height: 120px;
   color: white;
-	// border: 1px solid #0066CC;
-	// background-color: #008CBA;
-  // background-color: #0066CC;
-  background-color: #003399;
-  background: linear-gradient(#d6e4f4, #003399);
-  padding-top: 10px;
-	// margin-left: 30%;
-	// margin-right: 30%;
-}
+  background: #FED62E;
+  padding: 20px;
 
-.info {
-  margin: 10px;
-  text-align: right;
-}
-
-.image {
-  margin: 10px;
-  width: 125px;
-  float: left;
+  p {
+    span {
+     color: red;
+    }
+  }
 }
 
 .active-product {
-  border: 2px solid black;
+  border: 3px solid #FED62E;
 }
-
-@media screen and (max-width: 500px) {
-
-  body {
-    margin: 0;
-    
-  }
-  .warpper {
-    margin: 0
-  }
-}
-
 
 <<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
+>>>>>>> 11ffc73dd66fe4cdcf77cd8d1411e3779d9af55f
 #notification {
   background-color: red;
   padding: 5px 15px;
@@ -174,6 +129,7 @@ img.contact-logo:hover {
 
 #username {
   padding-right: 10px;
+<<<<<<< HEAD
 }
 
 
@@ -205,3 +161,6 @@ img.contact-logo:hover {
 //   vertical-align: baseline;
 // }
 
+=======
+}
+>>>>>>> 11ffc73dd66fe4cdcf77cd8d1411e3779d9af55f

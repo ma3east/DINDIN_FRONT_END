@@ -215,7 +215,16 @@ $(".search_product").on("submit", function(){
   }).done(function(data){
     data.forEach(function(product){
       var name=product.Name.replace("Tesco ","");
-      $("#product_container").append("<li class='product_item'><img src=" + product.ImagePath + " class='product-img'><p>"+ name +"</p></li>");
+      $("#product_container").append("<li class='product_item panel'>"+
+        "<section>"+
+          "<div class='image'>"+
+            "<img src=" + product.ImagePath + " class='product-img'>"+
+          "</div>"+
+          "<div class='info'>"+
+            "<h3>"+ name +"</h3>"+
+          "</div>"+
+        "</section>"+
+        "</li>");
     })
   })
 })

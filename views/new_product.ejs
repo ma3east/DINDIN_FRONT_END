@@ -1,15 +1,15 @@
 <h1>Add a new product</h1>
 
-<form action="/products/search" method="post" class="search_product">
+<form action="/products/search" method="post" class="search_product panel">
   <label>Product</label>
   <input type="text" name="search" placeholder="Enter product name">
-  <button class="button radius" type="submit">Search</button>
+  <button class="button radius expand" type="submit">Search</button>
 </form>
 
 <ul id="product_container">
 </ul>
 
-<form action="/products" method="post" id="new_product">
+<form action="/products" method="post" id="new_product" class="panel">
   <input type="hidden" name="user_id" value="<%= currentUser %>">
   <input type="hidden" name="name">
   <input type="hidden" name="image">
@@ -22,6 +22,5 @@
   <label>Pick up location</label>
   <input type="text" name="location">
 
-  <button class="button radius" type="submit">Submit</button>
-
+  <button class="button radius expand" type="submit">Submit</button>
 </form>
