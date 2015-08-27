@@ -4,7 +4,7 @@
       <h1 class="dindins_button"><a href="/">DinDins</a></h1>
     </li>
     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span><span id="username"><i></i></span><span id="notification"></span></span></li>
   </ul>
 
   <section class="top-bar-section">
@@ -14,14 +14,11 @@
       <% if(!currentUser){ %>
       <li><a href="/login">Login</a></li>
       <% } else { %>
-      <li id="username"><a><i>Username</i></a></li>
-      <li id="notification" ><a href="/transaction_status"><span></span> Notification(s)</a></li>
       <li><a href="/products/new">Add product</a></li>
       <li><a href="/transaction_status">Status of transactions</a></li>
       <li><a href="/users/logout">Logout</a></li>
       <% } %>
     </ul>
-
     <!-- Left Nav Section -->
     <ul class="left">
       <!--       <li><a href="#">Left Nav Button</a></li> -->

@@ -7,14 +7,14 @@ $(function(){
     type: "GET",
     headers: { 'Authorization': "Bearer " + token }
   }).done(function(user){
-    $("#username").find("i").html("Logged in as "+user.username);
+    $("#username").find("i").html(user.username+" ");
   })
   }
   
   $(document).foundation();
 
-  $('#datetimepicker').datetimepicker({format: "d/m/Y H:i"});
-  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y"});
+  $('#datetimepicker').datetimepicker({format: "d/m/Y H:i", scrollInput: false});
+  $('#datepicker').datetimepicker({timepicker: false, format: "d/m/Y", scrollInput: false});
 
   $.ajax({
     url: "http://localhost:9000/api/transactions",
@@ -34,7 +34,12 @@ $(function(){
     $("#notification").hide();
     if(valid_transactions.length>0){
       $("#notification").show();
-      $("#notification").find("span").html(valid_transactions.length);
+      $("#notification").html(valid_transactions.length);
+      $("#notification").on("click", function(){
+        event.stopPropagation();
+        event.preventDefault();
+        window.location.href="http://localhost:3000/transaction_status"
+      });
     }
   })
 
