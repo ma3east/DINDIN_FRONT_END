@@ -1,15 +1,14 @@
 <h1>Welcome to Dindins</h1>
 <h1><img src="images/dindinsLogo.jpeg" class="dindins_logo"></h1>
 
-<div class="map">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2606.0551345174367!2d-0.07241564432731708!3d51.52005611246731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cb5fda777e3%3A0xcdc91b6f0846d538!2sLondon+E1+5JL!5e0!3m2!1sen!2suk!4v1440668703446" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<div id="map">
 </div>
 
 <ul id="product-container">
   <% transactions.forEach(function(transaction) { %>
-  <% var product = transaction.products[0]; %>
-  <% if( product && transaction.status === "open") { %>
-  <%# transaction.giverId._id !== currentUser && %>
+   <% var product = transaction.products[0]; %>
+   <% if( product && transaction.status === "open") { %>
+    <%# transaction.giverId._id !== currentUser && %>
   <li class="panel">
     <div class="image"><a class="th" href="/transactions/<%=transaction._id%>">
       <img src="<%= product.image %>">

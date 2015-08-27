@@ -1,14 +1,14 @@
 $(function(){
   if(document.cookie){
-  var token = document.cookie.split(";")[0].split("=")[1];
-  var currentUser = document.cookie.split(";")[1].split("=")[1];
-  $.ajax({
-    url: "http://localhost:9000/api/users/"+ currentUser,
-    type: "GET",
-    headers: { 'Authorization': "Bearer " + token }
-  }).done(function(user){
-    $("#username").find("i").html("Logged in as "+user.username);
-  })
+    var token = document.cookie.split(";")[0].split("=")[1];
+    var currentUser = document.cookie.split(";")[1].split("=")[1];
+    $.ajax({
+      url: "http://localhost:9000/api/users/"+ currentUser,
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(user){
+      $("#username").find("i").html("Logged in as "+user.username);
+    })
   }
   
   $(document).foundation();
@@ -234,3 +234,57 @@ function parseUKdatetime(string){
   console.log(result);
   return result;
 }
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 51.5072, lng: -0.1225},
+    zoom: 12
+  });
+
+  function populateMap() { 
+    var token = document.cookie.split(";")[0].split("=")[1];
+    $.ajax({
+      url: "http://localhost:9000/api/transactions",
+      type: "GET",
+      headers: { 'Authorization': "Bearer " + token }
+    }).done(function(transactions){
+      transactions.forEach(function(transaction){
+        var location = new google.maps.Marker({
+          position: {
+            lat:transaction.lat,
+            lng:transaction.lng 
+          }
+        })
+        location.setMap(map)
+      })
+    })
+  }
+  populateMap();
+  // var locations = [];
+  // var location1 = {
+  //   lat:-34.5,
+  //   lng:150.5
+  // };
+  // var location2 = {
+  //   lat:-33.9,
+  //   lng:150.1
+  // };
+  // locations.push(location1);
+  // locations.push(location2);
+
+  // for (var i = 0; i < locations.length; i++) {
+  //   var marker = new google.maps.Marker({
+  //     position: {
+  //       lat:locations[i].lat,
+  //       lng:locations[i].lng
+  //     }
+  //   })
+  //   marker.setMap(map);
+  // }
+}
+
+
+
+
+
