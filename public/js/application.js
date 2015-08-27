@@ -108,9 +108,12 @@ $(".rate_transaction").on("submit", function(){
   var rating = $(this).find("select").val();
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
+  var isGiver = $(this).data().isgiver;
   var status = $(this).data().status;
-  if (status === "taken") {
-    status = "ratedByOne";
+  if (status === "taken" && isGiver === "true") {
+    status = "ratedByGiver";
+  } else if(status === "taken" && isGiver === "false"){
+    status = "ratedByTaker";
   } else {
     status = "closed";
   }
