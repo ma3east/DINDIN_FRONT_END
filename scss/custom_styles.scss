@@ -53,14 +53,9 @@ h1 {
   text-align: center;
 }
 
-.page {
-  margin: 0 10px;
-  text-align: center;
-}
-
-.map {
-  border: 5px solid white;
-  margin: 5px;
+#map {
+  height:320px;
+  width:640px;
 }
 
 .panel {
@@ -169,6 +164,7 @@ img.contact-logo:hover {
 }
 
 
+<<<<<<< HEAD
 #notification {
   background-color: red;
   padding: 5px 15px;
@@ -181,6 +177,8 @@ img.contact-logo:hover {
 }
 
 
+=======
+>>>>>>> developmentSam
 /* http://meyerweb.com/eric/tools/css/reset/ 
  v2.0 | 20110126
  License: none (public domain)
@@ -206,5 +204,4 @@ img.contact-logo:hover {
 //   font: inherit;
 //   vertical-align: baseline;
 // }
-
 
