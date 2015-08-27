@@ -4,14 +4,6 @@
 
 html, body {
   height: 100%;
-  //margin-left: 0;
-}
-
-body {
-  font-size: 100%;
-  width: 100%;
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  background: #d6e4f4;//#66CCFF;
 }
 
 .wrapper {
@@ -20,25 +12,8 @@ body {
   height: 100%;
   margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
   height */
-  // margin: 0 40px;
 }
 
-.top-bar, .name {
-  background: linear-gradient(#003399, #d6e4f4);
-}
-
-//burger bar drop down
-.top-bar-section li:not(.has-form) a:not(.button) {
-  background-color: #003399;
-}
-
-h1 {
-  font-family: Boogaloo, sans-serif;
-  text-align: center;
-  font-size: 30px;
-  color: black;
-
-}
 
 .dindins_button {
   float: left;
@@ -59,46 +34,11 @@ h1 {
 }
 
 .map {
-  border: 5px solid white;
-  margin: 5px;
+  width: 100%;
 }
 
-.panel {
-  border-color: white;
-  margin-right: 1em;
-}
-
-.button {
-  margin: 0 90px;
-}
-
-form {
-  margin: 0 10px;
-}
-
-// iframe {
-//   width: 450px;
-//   height: 250px;
-//   border: 0px;
-//   margin: 0 auto;
-// }
-
-// these were the inline iframe settings
-// width="450"
-// height="250"
-// frameborder="0" style="border:0"
-
-img {
-  height: 125px;
-  width: 125px;
-}
-
-ul {
-	list-style-type: none;
-}
-
-section {
-  border: 1px solid black;
+iframe {
+  width: 100%;
 }
 
 .team {
@@ -124,50 +64,26 @@ img.contact-logo:hover {
 }
 
 .footer, .push {
-	height: 90px; /* .push must be the same height as .footer */
+	height: 120px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
-  height: 90px;
-  // margin: 0 40px;
+  height: 120px;
   color: white;
-	// border: 1px solid #0066CC;
-	// background-color: #008CBA;
-  // background-color: #0066CC;
-  background-color: #003399;
-  background: linear-gradient(#d6e4f4, #003399);
-  padding-top: 10px;
-	// margin-left: 30%;
-	// margin-right: 30%;
-}
+  background: #FED62E;
+  padding: 20px;
 
-.info {
-  margin: 10px;
-  text-align: right;
-}
-
-.image {
-  margin: 10px;
-  width: 125px;
-  float: left;
+  p {
+    span {
+     color: red;
+    }
+  }
 }
 
 .active-product {
-  border: 2px solid black;
+  border: 3px solid #FED62E;
 }
-
-@media screen and (max-width: 500px) {
-
-  body {
-    margin: 0;
-    
-  }
-  .warpper {
-    margin: 0
-  }
-}
-
 
 #notification {
   background-color: red;
@@ -179,32 +95,3 @@ img.contact-logo:hover {
 #username {
   padding-right: 10px;
 }
-
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
- v2.0 | 20110126
- License: none (public domain)
- */
-
-//  html, body, div, span, applet, object, iframe,
-//  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-//  a, abbr, acronym, address, big, cite, code,
-//  del, dfn, em, img, ins, kbd, q, s, samp,
-//  small, strike, strong, sub, sup, tt, var,
-//  b, u, i, center,
-//  dl, dt, dd, ol, ul, li,
-//  fieldset, form, label, legend,
-//  table, caption, tbody, tfoot, thead, tr, th, td,
-//  article, aside, canvas, details, embed, 
-//  figure, figcaption, footer, header, hgroup, 
-//  menu, nav, output, ruby, section, summary,
-//  time, mark, audio, video {
-//   margin: 0;
-//   padding: 0;
-//   border: 0;
-//   font-size: 100%;
-//   font: inherit;
-//   vertical-align: baseline;
-// }
-
-
