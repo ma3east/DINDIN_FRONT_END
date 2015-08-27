@@ -22,7 +22,9 @@
       <% if (currentUser) { %>
       <p><span>Giver:</span> <%= transaction.giverId.username %></p>
       <p><span>User Rating:</span> <%= transaction.giverId.reputation %></p>
-      <p>Pick up: <%= transaction.location %> (<%= transaction.availableTime %>)</p>
+      <% date1 = new Date(transaction.availableTime[0]) %>
+      <% date2 = new Date(transaction.availableTime[1]) %>
+      <p>Pick up: <%= transaction.location %> (<%= date1.toDateString()+" "+date1.toTimeString().substring(0,5)+" - "+date2.toTimeString().substring(0,5) %>)</p>
       <%  } %>
     </div>
     </section>
