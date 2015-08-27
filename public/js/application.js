@@ -168,11 +168,7 @@ $(".rate_transaction").on("submit", function(){
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
-<<<<<<< HEAD
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
-=======
     headers: { 'Authorization': "Bearer " + token },
->>>>>>> 5625ee273367672baf1e6be8f349f2c97b864834
     data: {rating: rating, status: status}
   }).done(function(){
     window.location.href="http://localhost:3000";
@@ -188,11 +184,7 @@ $(".cancel_transaction").on("click", function(){
   $.ajax({
     url: "http://localhost:9000/api/transactions/" + transaction_id,
     type: "PUT",
-<<<<<<< HEAD
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + document.cookie.split(";")[0].split("=")[1]);},
-=======
     headers: { 'Authorization': "Bearer " + token },
->>>>>>> 5625ee273367672baf1e6be8f349f2c97b864834
     data: {status: "open"}
   }).done(function(){
     $.ajax({
