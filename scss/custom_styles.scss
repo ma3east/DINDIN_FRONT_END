@@ -11,15 +11,22 @@ body {
   font-size: 100%;
   width: 100%;
   font-family: "Comic Sans MS", cursive, sans-serif;
-  margin: 0 2em;
+  background: #d6e4f4;//#66CCFF;
 }
+
+.top-bar {
+  background: linear-gradient(#003399, #d6e4f4);
+}
+
+
 
 .wrapper {
   min-height: 100%;
   height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
   height: 100%;
-  margin: 0 auto -60px; /* the bottom margin is the negative value of the footer's 
+  margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
   height */
+  // margin: 0 40px;
 }
 
 h1 {
@@ -30,11 +37,23 @@ h1 {
 
 }
 
-.dindins {
+.dindins_logo {
   width: 500px;
   height: 200px;
   text-align: center;
 }
+
+iframe {
+  width: 450px;
+  height: 250px;
+  border: 0px;
+  margin: 0 auto;
+}
+
+// these were the inline iframe settings
+// width="450"
+// height="250"
+// frameborder="0" style="border:0"
 
 img {
   height: 125px;
@@ -45,7 +64,7 @@ ul {
 	list-style-type: none;
 }
 
-iframe {
+section {
   border: 1px solid black;
 }
 
@@ -69,38 +88,52 @@ img.contact-logo:hover {
   opacity: 0.6;
 }
 
-
 .footer, .push {
-	height: 60px; /* .push must be the same height as .footer */
+	height: 90px; /* .push must be the same height as .footer */
 	text-align: center;
 }
 
 .footer {
-  height: 60px;
-  width: 100%;
-	border: 1px solid #008CBA;
-	background-color: #008CBA;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+  height: 90px;
+  // margin: 0 40px;
+  color: white;
+	// border: 1px solid #0066CC;
+	// background-color: #008CBA;
+  // background-color: #0066CC;
+  background-color: #003399;
+  background: linear-gradient(#d6e4f4, #003399);
   padding-top: 10px;
 	// margin-left: 30%;
 	// margin-right: 30%;
 }
 
 .info {
-  margin:10px;
-  text-align: left;
+  margin: 10px;
+  // text-align: left;
+  text-align: center;
 }
 
 .image {
-  margin:10px;
-  width:125px;
-  float:left;
+  margin: 10px;
+  width: 125px;
+  float: left;
 }
 
 .active-product {
   border: 2px solid black;
 }
+
+@media screen and (max-width: 500px) {
+
+  body {
+    margin: 0;
+    
+  }
+  .warpper {
+    margin: 0
+  }
+}
+
 
 
 /* http://meyerweb.com/eric/tools/css/reset/ 

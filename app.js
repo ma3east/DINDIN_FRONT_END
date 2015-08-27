@@ -32,3 +32,6 @@ app.use(function(req,res,next){
 app.use(require('./controllers'));
 
 app.listen(process.env.PORT || 3000);
+
+/* start of media queries for mobile responsiveness */
+

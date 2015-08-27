@@ -1385,10 +1385,12 @@ $button-radius: $global-radius;
 
 // Background color for the top bar
 // $topbar-bg-color: $oil;
+$topbar-bg-color: #003399; //#0066CC;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
 // $topbar-height: rem-calc(45);
+$topbar-height: rem-calc(80);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1397,6 +1399,7 @@ $button-radius: $global-radius;
 
 // Set the link colors and styles for top-level nav
 // $topbar-link-color: $white;
+$topbar-link-color: white;
 // $topbar-link-color-hover: $white;
 // $topbar-link-color-active: $white;
 // $topbar-link-color-active-hover: $white;
