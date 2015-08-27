@@ -14,12 +14,6 @@ body {
   background: #d6e4f4;//#66CCFF;
 }
 
-.top-bar {
-  background: linear-gradient(#003399, #d6e4f4);
-}
-
-
-
 .wrapper {
   min-height: 100%;
   height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
@@ -27,6 +21,10 @@ body {
   margin: 0 auto -90px; /* the bottom margin is the negative value of the footer's 
   height */
   // margin: 0 40px;
+}
+
+.top-bar {
+  background: linear-gradient(#003399, #d6e4f4);
 }
 
 h1 {
@@ -37,18 +35,22 @@ h1 {
 
 }
 
+.dindins_button {
+  float: left;
+}
+
 .dindins_logo {
   width: 500px;
   height: 200px;
   text-align: center;
 }
 
-iframe {
-  width: 450px;
-  height: 250px;
-  border: 0px;
-  margin: 0 auto;
-}
+// iframe {
+//   width: 450px;
+//   height: 250px;
+//   border: 0px;
+//   margin: 0 auto;
+// }
 
 // these were the inline iframe settings
 // width="450"
@@ -109,8 +111,7 @@ img.contact-logo:hover {
 
 .info {
   margin: 10px;
-  // text-align: left;
-  text-align: center;
+  text-align: left;
 }
 
 .image {
