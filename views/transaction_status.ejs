@@ -66,7 +66,7 @@
       </select>
       <button type="submit" class="button radius expand" >Review Now</button>
     </form>
-    <button type="button" class="button radius expand" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
+    <button type="button" class="button radius expand cancel_transaction" id="<%= transaction._id %>" data-userid="<%= currentUser %>">
       Cancel Transaction
     </button>
   </li>
@@ -92,7 +92,7 @@
           date2.toTimeString().substring(0,5) %>)</p>
         </div>
       </section>
-      <button type="button" id="<%= transaction._id %>" class="button radius expand" >Delete</button>
+      <button type="button" id="<%= transaction._id %>" class="button radius expand delete_transaction" >Delete</button>
     </li>
 
     <% }) %>

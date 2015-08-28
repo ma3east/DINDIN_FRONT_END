@@ -182,7 +182,7 @@ $(".rate_transaction").on("submit", function(){
 })
 })
 
-$(".cancel_transaction").on("click", function(){
+$("body").on("click",".cancel_transaction", function(){
   event.preventDefault();
   var transaction_id = $(this).attr("id");
   var user_id = $(this).data().userid;
