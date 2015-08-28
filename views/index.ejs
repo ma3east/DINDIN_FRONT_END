@@ -1,11 +1,8 @@
-<h1>Welcome to Dindins</h1>
-
 <div class="welcome">
   <img id="logo" src="images/dindinsLogo.jpeg">
 </div>
 
 <div class="overlay" onClick="style.pointerEvents='none'"></div>
-
 <div id="map">
 </div>
 <ul id="product-container">
@@ -22,7 +19,6 @@
     </div>
     <div class="info">
       <h3><%= product.name %></h3>
-      <!--  <p><%# product.quantity %></p> -->
       <% date = new Date(product.bestBefore) %>
       <p><span>Best Before Date:</span> <%= date.toDateString() %></p>
       <% if (currentUser) { %>

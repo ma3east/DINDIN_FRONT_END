@@ -2,7 +2,6 @@
   <% var product = transaction.products[0]; %>
   <h3><%= product.name %></h3>
   <img src="<%= product.image %>">
-  <!-- <p>Quantity: <%# product.quantity %></p> -->
   <% date = new Date(product.bestBefore) %>
   <p><span>Best before:</span> <%= date.toDateString() %></p>
   <% date1 = new Date(transaction.availableTime[0]) %>
@@ -13,11 +12,9 @@
       <input type="hidden" name="taker_id" value="<%= currentUser %>">
       <label>Exact pick-up date and time</label>
       <input id="datetimepicker" type="text" name="meetingTime">
-      <!--   <input type="text" name="meetingTime"> -->
-      
-         <button class="button radius expand" type="submit">Confirm Pick-Up</button>
-        <a class="button radius expand"  href="/">Back</a>
-      </div>
+      <button class="button radius expand" type="submit">Confirm Pick-Up</button>
+      <a class="button radius expand"  href="/">Back</a>
     </div>
-  </form>
+  </div>
+</form>
 </div>
